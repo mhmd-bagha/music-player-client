@@ -7,7 +7,7 @@ import NavLink from "@/tools/nav-link";
 
 const Menu = () => {
     return (
-        <div className="h-full w-1/4 px-6 py-9">
+        <div className="h-screen w-1/4 lg:w-1/6 px-7 py-9 border-r">
             <div className="mb-5">
                 <div className='my-6'>
                     <NavLink href="/" className={style.menu_items} activeClassName={style.active}>
