@@ -1,5 +1,6 @@
 import Profile from "Component/home/profile";
 import RecentPlayed from "Component/home/recent-played";
+import InformationSongPlayed from "Component/home/information-song-played";
 
 const Sidebar = () => {
 
@@ -10,6 +11,8 @@ const Sidebar = () => {
                 <Profile/>
                 {/* recent played */}
                 <RecentPlayed/>
+                {/* information song played */}
+                <InformationSongPlayed/>
             </div>
         </>
     )
