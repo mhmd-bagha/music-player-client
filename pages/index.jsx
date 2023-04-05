@@ -1,5 +1,5 @@
-import Menu from "Component/home/menu";
-import Sidebar from "Component/home/sidebar";
+import Menu from "Component/menu/menu";
+import Sidebar from "Component/sidebar/sidebar";
 
 const Home = () => {
     return (
