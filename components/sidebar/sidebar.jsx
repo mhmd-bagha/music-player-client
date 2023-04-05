@@ -1,6 +1,6 @@
-import Profile from "Component/home/profile";
-import RecentPlayed from "Component/home/recent-played";
-import InformationSongPlayed from "Component/home/information-song-played";
+import Profile from "Component/sidebar/profile";
+import RecentPlayed from "Component/sidebar/recent-played";
+import InformationSongPlayed from "Component/sidebar/information-song-played";
 
 const Sidebar = () => {
 
