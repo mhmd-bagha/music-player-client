@@ -1,12 +1,11 @@
-import Menu from "Component/menu/menu";
-import Sidebar from "Component/sidebar/sidebar";
+import Searchbar from "Component/home/searchbar";
 
 const Home = () => {
     return (
         <>
-            <div className="flex">
-                <Menu/>
-                <Sidebar/>
+            <div className="grow mt-8">
+                {/* searchbar */}
+                <Searchbar/>
             </div>
         </>
     )
