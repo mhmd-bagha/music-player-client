@@ -11,7 +11,7 @@ const Searchbar = () => {
                 <button className="px-5"><FiChevronRight size={25} className="color-crayola"/></button>
             </div>
             {/* search */}
-            <div className={`flex justify-center items-center w-10/12 ${styles.searchbar}`}>
+            <div className={`flex justify-center items-center w-10/12 ml-8 ${styles.searchbar}`}>
                 <IoSearchOutline size={19}/>
                 <input type="text" placeholder="search..."/>
             </div>
