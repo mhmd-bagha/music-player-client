@@ -46,3 +46,29 @@
     color: $color_gunmetal;
   }
 }
+
+.play_album_artist {
+  position: relative;
+  .play_button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba($color_gunmetal_rgb, .2);
+    transform: translate(6.5rem, -4.1rem);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease-in-out;
+  }
+
+  &:hover {
+    .play_button {
+      background: rgba($color_gunmetal_rgb, 1);
+    }
+
+    svg {
+      color: $color_anti_flash_white;
+    }
+  }
+}
