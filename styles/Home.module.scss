@@ -49,6 +49,7 @@
 
 .play_album_artist {
   position: relative;
+
   .play_button {
     position: absolute;
     width: 40px;
@@ -68,6 +69,38 @@
     }
 
     svg {
+      color: $color_anti_flash_white;
+    }
+  }
+}
+
+.play_popular_song_button {
+  position: relative;
+
+  .play_button {
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    background: transparent;
+    transform: translate(2.2rem, 0);
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s ease-in-out;
+  }
+
+  svg {
+  opacity: .1;
+  }
+
+  &:hover {
+    .play_button {
+      background: rgba($color_gunmetal_rgb, 1);
+    }
+
+    svg {
+      opacity: 1;
       color: $color_anti_flash_white;
     }
   }

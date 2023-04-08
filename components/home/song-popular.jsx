@@ -3,6 +3,8 @@ import Image from "next/image";
 import {AiOutlineHeart} from "react-icons/ai";
 import NumberFormat from "@/helpers/number-format";
 import {useState} from "react";
+import styles from "Styles/Home.module.scss";
+import {CiPlay1} from "react-icons/ci";
 
 const SongPopular = () => {
     const [songLiked, setSongLiked] = useState(false)
@@ -24,11 +26,10 @@ const SongPopular = () => {
                     {songs.map((song, index) => (
                         <div className="grid grid-flow-col grid-cols-2 my-3" key={index}>
                             {/* number, image and name  */}
-                            <div className="flex items-center cursor-pointer">
+                            <div className={`${styles.play_popular_song_button} flex items-center cursor-pointer`}>
                                 <p className="color-gunmetal text-sm font-medium pr-5 hidden lg:block">{song.id}</p>
-                                <Image src={song.image} alt={song.name} className="w-12 h-12 rounded"
-                                       width={200}
-                                       height={200}/>
+                                <Image src={song.image} alt={song.name} className="w-12 h-12 rounded" width={200} height={200}/>
+                                <button className={`${styles.play_button} w-10 h-10 !hidden lg:!flex`}><CiPlay1 size={22}/></button>
                                 <p className="color-gunmetal text-sm font-bold ml-8">{song.name}</p>
                             </div>
                             {/* the number of broadcasts */}
