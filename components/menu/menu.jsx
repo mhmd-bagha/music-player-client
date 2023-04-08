@@ -3,7 +3,7 @@ import {TbPlaylist, TbSmartHome} from "react-icons/tb";
 import {FiMusic} from "react-icons/fi";
 import {AiOutlineHeart} from "react-icons/ai";
 import {BsPersonFillCheck} from "react-icons/bs";
-import NavLink from "@/tools/nav-link";
+import NavLink from "@/helpers/nav-link";
 
 const Menu = () => {
     return (
