@@ -1,8 +1,8 @@
-import {useReducer, useRef, useState} from "react";
+import {useEffect, useReducer, useRef, useState} from "react";
 import styles from 'Styles/Player.module.scss'
-import {BsPauseCircleFill, BsPlayCircleFill} from "react-icons/bs";
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {AiOutlineSound} from "react-icons/ai";
+import {CiPause1, CiPlay1} from "react-icons/ci";
 
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
@@ -10,7 +10,7 @@ const SET_CURRENT_TIME = "SET_CURRENT_TIME";
 
 const InitialState = {
     play: false,
-    currentTime: 100,
+    currentTime: 0,
     // duration: 0,
 }
 
@@ -56,36 +56,40 @@ const Player = ({src}) => {
     return (
         <>
             {/* controls */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center mb-5">
                 {/* toggle play and next and back */}
                 <div className="flex items-center">
                     {/* back music */}
-                    <button className="px-4">
+                    <button className="back_music">
                         <FiSkipBack className="color-gunmetal" size={24}/>
                     </button>
+
                     {/* toggle music */}
-                    <button className="px-4" onClick={togglePlay}>
-                        {state.play ? <BsPauseCircleFill className="color-gunmetal" size={27}/> :
-                            <BsPlayCircleFill className="color-gunmetal" size={27}/>}
+                    <button className="toggle_music" onClick={togglePlay}>
+                        {state.play ? <CiPause1 className="color-gunmetal" size={27}/> :
+                            <CiPlay1 className="color-gunmetal" size={27}/>}
                     </button>
+
                     {/* next music */}
-                    <button className="px-4">
+                    <button className="next_music">
                         <FiSkipForward className="color-gunmetal" size={24}/>
                     </button>
                 </div>
+
                 {/*  control sound  */}
                 <div className="flex justify-center items-center">
-                    <button><AiOutlineSound className="color-gunmetal"/></button>
-                    <input type="range"/>
+                    <button className="sound_button"><AiOutlineSound className="color-gunmetal"/></button>
+                    <input type="range" className="sound_range"/>
                 </div>
             </div>
+
             {/* time buffer */}
             <div className="flex justify-center items-center w-full">
                 {/* current time */}
                 <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
                 {/* change time */}
                 <input type="range" min={0} max={duration} value={state.currentTime} onChange={changedRange}
-                       className={`${styles.time_buffer} px-10`}/>
+                       className={styles.buffer_range_bar}/>
                 {/* all time */}
                 <p className="text-xs color-gunmetal">{formatTime(duration)}</p>
             </div>
