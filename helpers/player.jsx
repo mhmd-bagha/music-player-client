@@ -155,7 +155,8 @@ const Player = ({src}) => {
                 <p className="text-xs color-gunmetal">{formatTime(state.duration)}</p>
             </div>
             {/* audio player */}
-            <audio ref={playerRef} src={src} onTimeUpdate={handleCurrentTime} onLoadedData={handleDuration}/>
+            <audio ref={playerRef} src={src} onTimeUpdate={handleCurrentTime} onEnded={pauseAudio}
+                   onLoadedData={handleDuration}/>
         </>
     )
 }
