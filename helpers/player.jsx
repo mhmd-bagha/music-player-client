@@ -2,7 +2,8 @@ import {useEffect, useReducer, useRef, useState} from "react";
 import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {AiOutlineSound} from "react-icons/ai";
-import {CiPause1, CiPlay1} from "react-icons/ci";
+import {CiPause1, CiPlay1, CiShare1} from "react-icons/ci";
+import {RiPlayListLine} from "react-icons/ri";
 
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
@@ -59,6 +60,17 @@ const Player = ({src}) => {
         <>
             {/* controls */}
             <div className="flex justify-between items-center mb-5">
+                {/* play list, share song */}
+                <div className="flex">
+                    {/* playlist */}
+                    <button className="">
+                        <RiPlayListLine size={24} className="color-gunmetal"/>
+                    </button>
+                    {/* share song */}
+                    <button className="">
+                        <CiShare1 size={24} className="color-gunmetal"/>
+                    </button>
+                </div>
                 {/* toggle play and next and back */}
                 <div className="flex items-center">
                     {/* back music */}
@@ -77,14 +89,12 @@ const Player = ({src}) => {
                         <FiSkipForward className="color-gunmetal" size={24}/>
                     </button>
                 </div>
-
                 {/*  control sound  */}
                 <div className="flex justify-center items-center">
                     <button className="sound_button"><AiOutlineSound className="color-gunmetal"/></button>
                     <input type="range" className="sound_range"/>
                 </div>
             </div>
-
             {/* time buffer */}
             <div className="flex justify-center items-center w-full">
                 {/* current time */}
