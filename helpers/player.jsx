@@ -65,7 +65,9 @@ const Player = ({src}) => {
         if (currentVolume === '0') {
             pauseAudio()
             // change status volume to true/false
-            dispatch({type: SET_STATUS_VOLUME, payload: !state.statusVolume})
+            dispatch({type: SET_STATUS_VOLUME, payload: false})
+        } else {
+            dispatch({type: SET_STATUS_VOLUME, payload: true})
         }
     }
 
