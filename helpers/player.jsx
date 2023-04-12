@@ -31,6 +31,7 @@ const reducer = (state = InitialState, action) => {
 const Player = ({src}) => {
     const [state, dispatch] = useReducer(reducer, InitialState)
     const playerRef = useRef(null)
+    const volumeRef = useRef(null)
 
     const togglePlay = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
@@ -51,6 +52,8 @@ const Player = ({src}) => {
         const seconds = Math.floor(time % 60).toString().padStart(2, '0')
         return `${minutes}:${seconds}`
     }
+
+    const updateVolume = () => playerRef.current.volume = volumeRef.current.value
 
     useEffect(() => {
         handleDuration()
@@ -90,9 +93,11 @@ const Player = ({src}) => {
                     </button>
                 </div>
                 {/*  control sound  */}
-                <div className="flex justify-center items-center">
-                    <button className="sound_button"><AiOutlineSound className="color-gunmetal"/></button>
-                    <input type="range" className="sound_range"/>
+                <div className="flex gap-5 items-center">
+                    <button className="sound_button"><AiOutlineSound size={19} className="color-gunmetal"/></button>
+                    <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
+                           step='0.02'
+                           onChange={updateVolume}/>
                 </div>
             </div>
             {/* time buffer */}
