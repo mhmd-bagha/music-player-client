@@ -35,6 +35,7 @@ const Player = ({src}) => {
     const [state, dispatch] = useReducer(reducer, InitialState)
     const playerRef = useRef(null)
     const volumeRef = useRef(null)
+    const defaultStepVolume = 0.02
 
     const togglePlay = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
@@ -73,6 +74,10 @@ const Player = ({src}) => {
             dispatch({type: SET_STATUS_VOLUME, payload: true})
         }
     }
+
+    const increaseVolume = () => dispatch({type: SET_VOLUME, payload: state.volume + defaultStepVolume})
+
+    const decreaseVolume = () => dispatch({type: SET_VOLUME, payload: state.volume - defaultStepVolume})
 
     useEffect(() => {
         handleDuration()
@@ -113,15 +118,17 @@ const Player = ({src}) => {
                 </div>
                 {/*  control sound  */}
                 <div className="flex gap-5 items-center">
-                    <button className="sound_button">
+                    <button className="sound_button" onClick={decreaseVolume}>
                         {!state.statusVolume ?
                             <CiVolumeMute size={19} className="color-gunmetal"/> :
                             <CiVolume size={19} className="color-gunmetal"/>}
                     </button>
                     <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
-                           step='0.02'
+                           step={defaultStepVolume}
                            onChange={updateVolume} value={state.volume}/>
-                    <button className="sound_button"><CiVolumeHigh size={19} className="color-gunmetal"/></button>
+                    <button className="sound_button" onClick={increaseVolume}><CiVolumeHigh size={19}
+                                                                                            className="color-gunmetal"/>
+                    </button>
                 </div>
             </div>
             {/* time buffer */}
