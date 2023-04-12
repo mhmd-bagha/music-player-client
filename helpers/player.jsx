@@ -63,21 +63,34 @@ const Player = ({src}) => {
     }
 
     const updateVolume = () => {
-        const currentVolume = volumeRef.current.value
-        playerRef.current.volume = currentVolume
+        const currentVolume = parseFloat(volumeRef.current.value)
+        changeVolumeState(currentVolume)
+    }
 
-        if (currentVolume === '0') {
+    const changeVolumeState = (volume) => {
+        volume = parseFloat(volume)
+        playerRef.current.volume = volume
+        if (volume === 0) {
             pauseAudio()
             // change status volume to true/false
             dispatch({type: SET_STATUS_VOLUME, payload: false})
         } else {
             dispatch({type: SET_STATUS_VOLUME, payload: true})
         }
+        dispatch({type: SET_VOLUME, payload: volume})
     }
 
-    const increaseVolume = () => dispatch({type: SET_VOLUME, payload: state.volume + defaultStepVolume})
+    const increaseVolume = () => {
+        let volume = parseFloat(volumeRef.current.value)
+        volume = ((volume + defaultStepVolume < 1) ? volume + defaultStepVolume : 1).toFixed(2)
+        changeVolumeState(volume)
+    }
 
-    const decreaseVolume = () => dispatch({type: SET_VOLUME, payload: state.volume - defaultStepVolume})
+    const decreaseVolume = () => {
+        let volume = parseFloat(volumeRef.current.value)
+        volume = ((volume - defaultStepVolume < 0) ? 0 : volume - defaultStepVolume).toFixed(2)
+        changeVolumeState(volume)
+    }
 
     useEffect(() => {
         handleDuration()
@@ -126,8 +139,8 @@ const Player = ({src}) => {
                     <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
                            step={defaultStepVolume}
                            onChange={updateVolume} value={state.volume}/>
-                    <button className="sound_button" onClick={increaseVolume}><CiVolumeHigh size={19}
-                                                                                            className="color-gunmetal"/>
+                    <button className="sound_button" onClick={increaseVolume}>
+                        <CiVolumeHigh size={19} className="color-gunmetal"/>
                     </button>
                 </div>
             </div>
