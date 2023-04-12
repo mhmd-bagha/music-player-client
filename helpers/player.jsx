@@ -111,7 +111,7 @@ const Player = ({src}) => {
                 {/*  control sound  */}
                 <div className="flex gap-5 items-center">
                     <button className="sound_button">
-                        {state.statusVolume ?
+                        {!state.statusVolume ?
                             <CiVolumeMute size={19} className="color-gunmetal"/> :
                             <CiVolume size={19} className="color-gunmetal"/>}
                     </button>
