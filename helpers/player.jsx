@@ -8,11 +8,10 @@ import {RiPlayListLine} from "react-icons/ri";
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
 const SET_DURATION = "SET_DURATION";
+const SET_STATUS_VOLUME = "SET_STATUS_VOLUME";
 
 const InitialState = {
-    play: false,
-    currentTime: 0,
-    duration: 0,
+    play: false, currentTime: 0, duration: 0, statusVolume: true
 }
 
 const reducer = (state = InitialState, action) => {
@@ -23,6 +22,8 @@ const reducer = (state = InitialState, action) => {
             return {...state, currentTime: action.payload}
         case SET_DURATION:
             return {...state, duration: action.payload}
+        case SET_STATUS_VOLUME:
+            return {...state, statusVolume: action.payload}
         default:
             return state
     }
@@ -36,6 +37,11 @@ const Player = ({src}) => {
     const togglePlay = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
         dispatch({type: SET_PLAY, payload: !state.play})
+    }
+
+    const pauseAudio = () => {
+        playerRef.current.pause()
+        dispatch({type: SET_PLAY, payload: false})
     }
 
     const handleCurrentTime = () => dispatch({type: SET_CURRENT_TIME, payload: playerRef.current.currentTime})
@@ -53,7 +59,16 @@ const Player = ({src}) => {
         return `${minutes}:${seconds}`
     }
 
-    const updateVolume = () => playerRef.current.volume = volumeRef.current.value
+    const updateVolume = () => {
+        const currentVolume = volumeRef.current.value
+        playerRef.current.volume = currentVolume
+
+        if (currentVolume === '0') {
+            pauseAudio()
+            // change status volume to true/false
+            dispatch({type: SET_STATUS_VOLUME, payload: !state.statusVolume})
+        }
+    }
 
     useEffect(() => {
         handleDuration()
