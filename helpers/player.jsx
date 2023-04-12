@@ -8,9 +8,10 @@ const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
 const SET_DURATION = "SET_DURATION";
 const SET_STATUS_VOLUME = "SET_STATUS_VOLUME";
+const SET_VOLUME = "SET_VOLUME";
 
 const InitialState = {
-    play: false, currentTime: 0, duration: 0, statusVolume: true
+    play: false, currentTime: 0, duration: 0, statusVolume: true, volume: 0.5
 }
 
 const reducer = (state = InitialState, action) => {
@@ -23,6 +24,8 @@ const reducer = (state = InitialState, action) => {
             return {...state, duration: action.payload}
         case SET_STATUS_VOLUME:
             return {...state, statusVolume: action.payload}
+        case SET_VOLUME:
+            return {...state, volume: action.payload}
         default:
             return state
     }
@@ -117,7 +120,7 @@ const Player = ({src}) => {
                     </button>
                     <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
                            step='0.02'
-                           onChange={updateVolume}/>
+                           onChange={updateVolume} value={state.volume}/>
                     <button className="sound_button"><CiVolumeHigh size={19} className="color-gunmetal"/></button>
                 </div>
             </div>
