@@ -101,7 +101,7 @@ const Player = ({src}) => {
             {/* controls */}
             <div className="flex justify-between items-center mb-5">
                 {/* play list, share song */}
-                <div className="flex">
+                <div className="flex items-center gap-5">
                     {/* playlist */}
                     <button className="">
                         <RiPlayListLine size={24} className="color-gunmetal"/>
@@ -112,25 +112,25 @@ const Player = ({src}) => {
                     </button>
                 </div>
                 {/* toggle play and next and back */}
-                <div className="flex items-center">
+                <div className="flex items-center gap-5">
                     {/* back music */}
-                    <button className="back_music">
+                    <button>
                         <FiSkipBack className="color-gunmetal" size={24}/>
                     </button>
 
                     {/* toggle music */}
-                    <button className="toggle_music" onClick={togglePlay}>
+                    <button onClick={togglePlay}>
                         {state.play ? <CiPause1 className="color-gunmetal" size={27}/> :
                             <CiPlay1 className="color-gunmetal" size={27}/>}
                     </button>
 
                     {/* next music */}
-                    <button className="next_music">
+                    <button>
                         <FiSkipForward className="color-gunmetal" size={24}/>
                     </button>
                 </div>
                 {/*  control sound  */}
-                <div className="flex gap-5 items-center">
+                <div className="flex items-center gap-5">
                     <button className="sound_button" onClick={decreaseVolume}>
                         {!state.statusVolume ?
                             <CiVolumeMute size={19} className="color-gunmetal"/> :
@@ -145,7 +145,7 @@ const Player = ({src}) => {
                 </div>
             </div>
             {/* time buffer */}
-            <div className="flex justify-center items-center w-full">
+            <div className="flex justify-center items-center w-full gap-5">
                 {/* current time */}
                 <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
                 {/* change time */}
