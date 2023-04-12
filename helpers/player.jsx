@@ -6,12 +6,12 @@ import {CiPause1, CiPlay1} from "react-icons/ci";
 
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
-// const SET_DURATION = "SET_DURATION";
+const SET_DURATION = "SET_DURATION";
 
 const InitialState = {
     play: false,
     currentTime: 0,
-    // duration: 0,
+    duration: 0,
 }
 
 const reducer = (state = InitialState, action) => {
@@ -20,8 +20,8 @@ const reducer = (state = InitialState, action) => {
             return {...state, play: action.payload}
         case SET_CURRENT_TIME:
             return {...state, currentTime: action.payload}
-        // case SET_DURATION:
-        //     return {...state, duration: action.payload} // this state duration disabled for next update
+        case SET_DURATION:
+            return {...state, duration: action.payload}
         default:
             return state
     }
@@ -29,7 +29,6 @@ const reducer = (state = InitialState, action) => {
 
 const Player = ({src}) => {
     const [state, dispatch] = useReducer(reducer, InitialState)
-    const [duration, setDuration] = useState(0)
     const playerRef = useRef(null)
 
     const togglePlay = () => {
@@ -39,8 +38,7 @@ const Player = ({src}) => {
 
     const handleCurrentTime = () => dispatch({type: SET_CURRENT_TIME, payload: playerRef.current.currentTime})
 
-    // const handleDuration = () => dispatch({type: SET_DURATION, payload: playerRef.current.duration})
-    const handleDuration = () => setDuration(playerRef.current.duration)
+    const handleDuration = () => dispatch({type: SET_DURATION, payload: playerRef.current.duration})
 
     const changedRange = (e) => {
         playerRef.current.currentTime = e.target.value
@@ -52,6 +50,10 @@ const Player = ({src}) => {
         const seconds = Math.floor(time % 60).toString().padStart(2, '0')
         return `${minutes}:${seconds}`
     }
+
+    useEffect(() => {
+        handleDuration()
+    }, [])
 
     return (
         <>
@@ -88,10 +90,10 @@ const Player = ({src}) => {
                 {/* current time */}
                 <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
                 {/* change time */}
-                <input type="range" min={0} max={duration} value={state.currentTime} onChange={changedRange}
+                <input type="range" min={0} max={state.duration} value={state.currentTime} onChange={changedRange}
                        className={styles.buffer_range_bar}/>
                 {/* all time */}
-                <p className="text-xs color-gunmetal">{formatTime(duration)}</p>
+                <p className="text-xs color-gunmetal">{formatTime(state.duration)}</p>
             </div>
             {/* audio player */}
             <audio ref={playerRef} src={src} onTimeUpdate={handleCurrentTime} onLoadedData={handleDuration}/>
