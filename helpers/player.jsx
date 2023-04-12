@@ -1,8 +1,7 @@
 import {useEffect, useReducer, useRef, useState} from "react";
 import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
-import {AiOutlineSound} from "react-icons/ai";
-import {CiPause1, CiPlay1, CiShare1} from "react-icons/ci";
+import {CiPause1, CiPlay1, CiShare1, CiVolume, CiVolumeHigh} from "react-icons/ci";
 import {RiPlayListLine} from "react-icons/ri";
 
 const SET_PLAY = "SET_PLAY";
@@ -109,10 +108,11 @@ const Player = ({src}) => {
                 </div>
                 {/*  control sound  */}
                 <div className="flex gap-5 items-center">
-                    <button className="sound_button"><AiOutlineSound size={19} className="color-gunmetal"/></button>
+                    <button className="sound_button"><CiVolume size={19} className="color-gunmetal"/></button>
                     <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
                            step='0.02'
                            onChange={updateVolume}/>
+                    <button className="sound_button"><CiVolumeHigh size={19} className="color-gunmetal"/></button>
                 </div>
             </div>
             {/* time buffer */}
