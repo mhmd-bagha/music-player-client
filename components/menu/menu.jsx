@@ -4,10 +4,38 @@ import {FiMusic} from "react-icons/fi";
 import {AiOutlineHeart} from "react-icons/ai";
 import {BsPersonFillCheck} from "react-icons/bs";
 import NavLink from "@/helpers/nav-link";
+import {VscChromeClose} from "react-icons/vsc";
+import {useEffect, useMemo, useState} from "react";
+import useDeviceWidth from "@/helpers/device-width";
 
 const Menu = () => {
+    const [openMenu, setOpenMenu] = useState(undefined)
+    // Get use device user
+    const {getDevice} = useDeviceWidth()
+    // Change show class menu form status state
+    const activeMenuClass = useMemo(() => {
+        switch (openMenu) {
+            case true:
+                return 'right-0 left-0';
+            case false:
+                return 'left-full';
+            default:
+                return '';
+        }
+    }, [openMenu]);
+
+    useEffect(() => {
+        // Set openMenu based on device width
+        (getDevice() === 'sm' || getDevice() === 'md') ? setOpenMenu(false) : setOpenMenu(undefined)
+    }, [getDevice])
+
     return (
-        <div className="h-screen w-1/4 lg:w-1/6 px-7 py-9 border-r">
+        <div
+            className={`bg-white h-screen fixed top-0 bottom-0 z-10 lg:relative w-full lg:w-1/6 px-7 py-9 border-r transition-all duration-500 ease-in-out ${activeMenuClass}`}>
+            {/* close button */}
+            <button className="block lg:hidden float-right" onClick={() => setOpenMenu(false)}>
+                <VscChromeClose size={25} className="color-gunmetal"/>
+            </button>
             <div className="mb-5">
                 <div className='my-6'>
                     <NavLink href="/" className={style.menu_items} activeClassName={style.active}>
