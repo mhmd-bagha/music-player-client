@@ -47,13 +47,13 @@ const Menu = () => {
                     <div className='my-6'>
                         <NavLink href="/" className={style.menu_items} activeClassName={style.active}>
                             <TbSmartHome/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-3 transition ease-in duration-500`}>Home</p>
+                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Home</p>
                         </NavLink>
                     </div>
                     <div className='my-6'>
                         <NavLink href="/library" className={style.menu_items} activeClassName={style.active}>
                             <FiMusic/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-3 transition ease-in duration-500`}>Library</p>
+                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Library</p>
                         </NavLink>
                     </div>
                 </div>
@@ -62,7 +62,7 @@ const Menu = () => {
                     <div className='my-6'>
                         <NavLink href="/liked-songs" className={style.menu_items} activeClassName={style.active}>
                             <AiOutlineHeart/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-3 transition ease-in duration-500`}>Liked
+                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Liked
                                 Songs</p>
                         </NavLink>
                     </div>
@@ -70,14 +70,14 @@ const Menu = () => {
                         <NavLink href="/favorite-artist" className={style.menu_items}
                                  activeClassName={style.active}>
                             <BsPersonFillCheck/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-3 transition ease-in duration-500`}>Favorite
+                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Favorite
                                 Artist</p>
                         </NavLink>
                     </div>
                     <div className='my-6'>
                         <NavLink href="/playlist" className={style.menu_items} activeClassName={style.active}>
                             <TbPlaylist/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-3 transition ease-in duration-500`}>Playlist</p>
+                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Playlist</p>
                         </NavLink>
                     </div>
                 </div>
