@@ -16,6 +16,8 @@ const useDeviceWidth = () => {
                 return "md";
             case width >= devices.current.sm:
                 return "sm";
+            default:
+                return "sm"
         }
     }, [width]);
 
