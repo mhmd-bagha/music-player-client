@@ -4,7 +4,7 @@ import Sidebar from "Component/sidebar/sidebar";
 const Layout = ({children}) => {
     return (
         <>
-            <div className="flex">
+            <div className="lg:grid lg:grid-flow-col">
                 <Menu/>
                 {children}
                 <Sidebar/>

@@ -7,7 +7,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="grow mt-8">
+            <div className="col-span-12 mt-8">
                 {/* searchbar */}
                 <Searchbar/>
                 {/* popular artist */}
