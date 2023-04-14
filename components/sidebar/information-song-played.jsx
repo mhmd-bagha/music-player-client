@@ -9,12 +9,12 @@ const InformationSongPlayed = () => {
 
     return (
         <>
-            <div className="mt-10">
+            <div className="pt-7">
                 <Image src={ImageSong} alt={'Wildest Dreams'} className="rounded-md"/>
                 <div className="flex justify-between items-center pt-4">
                     {/* song name */}
-                    <div>
-                        <p className="font-bold text-lg color-gunmetal">Wildest Dreams</p>
+                    <div className="truncate">
+                        <p className="font-bold text-lg lg:text-sm 2xl:text-lg color-gunmetal">Wildest Dreams</p>
                         <p className="color-crayola text-xs">Taylor Swift</p>
                     </div>
                     {/* song like */}

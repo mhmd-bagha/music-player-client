@@ -11,9 +11,9 @@ const Profile = () => {
             {/* user information */}
             <div className="flex items-center">
                 <Image src={ImagePerson} alt={'elon musk'} className="w-12 h-12 rounded-3xl"/>
-                <div className="pl-3.5">
+                <div className="pl-3.5 lg:hidden 2xl:block">
                     <p className="color-gunmetal text-sm font-bold">elon musk</p>
-                    <p className="color-crayola text-sm">Premium Member.</p>
+                    <p className="color-crayola text-sm xl:text-xs">Premium Member.</p>
                 </div>
             </div>
             {/* notification */}
