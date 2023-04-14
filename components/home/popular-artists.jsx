@@ -13,7 +13,7 @@ const PopularArtists = () => {
     ]
 
     return (
-        <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-10">
+        <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-14">
             {artists.map((artist, index) => (
                 <div className="border rounded shadow w-44 px-6 py-5" key={index}>
                     <Link href={`/album/${artist.url}`} className={`${styles.play_album_artist} w-10 h-10`}>
