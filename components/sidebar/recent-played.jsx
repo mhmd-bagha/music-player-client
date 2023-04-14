@@ -1,7 +1,15 @@
 import Image from "next/image";
-import ImageSong from '@/public/songs/song.jpg';
 
 const RecentPlayed = () => {
+    const recentPlayedSong = [
+        {name: 'Blank Space', image: '/songs/song.jpg', singer: 'Taylor Swift', played_time: '12min'},
+        {name: 'Bad Hobbits', image: '/songs/song.jpg', singer: 'Ed Sheeran', played_time: '30min'},
+        {name: 'MONEY', image: '/songs/song.jpg', singer: 'Lisa', played_time: '2hr'},
+        {name: 'I See Love', image: '/songs/song.jpg', singer: 'Jonas Blue', played_time: '4hr'},
+        {name: 'Side Effects', image: '/songs/song.jpg', singer: 'The Chainsmokers', played_time: '4hr'},
+        {name: 'Hora Loca', image: '/songs/song.jpg', singer: 'The Change', played_time: '5hr'},
+    ]
+
     return (
         <>
             <div className="flex justify-between items-center mt-14 gap-5">
@@ -11,83 +19,21 @@ const RecentPlayed = () => {
             {/* songs */}
             <div className="mt-6">
                 {/* song */}
-                <div className="flex justify-between items-center py-2">
-                    {/* image and name */}
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <Image src={ImageSong} alt={'blank space'} className="w-12 h-12 rounded"/>
-                        <div className="pl-4">
-                            <p className="text-sm color-gunmetal">Blank Space</p>
-                            <p className="color-crayola text-xs">Taylor Swift</p>
+                {recentPlayedSong.map((song, index) => (
+                    <div className="flex justify-between items-center py-2" key={index}>
+                        {/* image and name */}
+                        <div className="flex justify-center items-center cursor-pointer">
+                            <Image src={song.image} alt={song.name} className="w-12 h-12 rounded" width={200}
+                                   height={200}/>
+                            <div className="pl-4">
+                                <p className="text-sm color-gunmetal">{song.name}</p>
+                                <p className="color-crayola text-xs">{song.singer}</p>
+                            </div>
                         </div>
+                        {/* time */}
+                        <p className="text-xs color-gunmetal">{song.played_time} ago</p>
                     </div>
-                    {/* time */}
-                    <p className="text-xs color-gunmetal">12min ago</p>
-                </div>
-                {/* song */}
-                <div className="flex justify-between items-center py-2">
-                    {/* image and name */}
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <Image src={ImageSong} alt={'blank space'} className="w-12 h-12 rounded"/>
-                        <div className="pl-4">
-                            <p className="text-sm color-gunmetal">Bad Hobbits</p>
-                            <p className="color-crayola text-xs">Ed Sheeran</p>
-                        </div>
-                    </div>
-                    {/* time */}
-                    <p className="text-xs color-gunmetal">30min ago</p>
-                </div>
-                {/* song */}
-                <div className="flex justify-between items-center py-2">
-                    {/* image and name */}
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <Image src={ImageSong} alt={'blank space'} className="w-12 h-12 rounded"/>
-                        <div className="pl-4">
-                            <p className="text-sm color-gunmetal">MONEY</p>
-                            <p className="color-crayola text-xs">Lisa</p>
-                        </div>
-                    </div>
-                    {/* time */}
-                    <p className="text-xs color-gunmetal">2hr ago</p>
-                </div>
-                {/* song */}
-                <div className="flex justify-between items-center py-2">
-                    {/* image and name */}
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <Image src={ImageSong} alt={'blank space'} className="w-12 h-12 rounded"/>
-                        <div className="pl-4">
-                            <p className="text-sm color-gunmetal">I See Love</p>
-                            <p className="color-crayola text-xs">Jonas Blue</p>
-                        </div>
-                    </div>
-                    {/* time */}
-                    <p className="text-xs color-gunmetal">4hr ago</p>
-                </div>
-                {/* song */}
-                <div className="flex justify-between items-center py-2">
-                    {/* image and name */}
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <Image src={ImageSong} alt={'blank space'} className="w-12 h-12 rounded"/>
-                        <div className="pl-4">
-                            <p className="text-sm color-gunmetal">Side Effects</p>
-                            <p className="color-crayola text-xs">The Chainsmokers</p>
-                        </div>
-                    </div>
-                    {/* time */}
-                    <p className="text-xs color-gunmetal">4hr ago</p>
-                </div>
-                {/* song */}
-                <div className="flex justify-between items-center py-2">
-                    {/* image and name */}
-                    <div className="flex justify-center items-center cursor-pointer">
-                        <Image src={ImageSong} alt={'blank space'} className="w-12 h-12 rounded"/>
-                        <div className="pl-4">
-                            <p className="text-sm color-gunmetal">Hora Loca</p>
-                            <p className="color-crayola text-xs">The Change</p>
-                        </div>
-                    </div>
-                    {/* time */}
-                    <p className="text-xs color-gunmetal">5hr ago</p>
-                </div>
+                ))}
             </div>
         </>
     )
