@@ -37,7 +37,7 @@ const Menu = () => {
                 <HiBars3 size={25} className="color-gunmetal"/>
             </button>
             <div
-                className={`bg-white h-screen fixed top-0 bottom-0 z-10 lg:relative w-full border-r px-7 py-9 transition-all duration-500 ease-in-out ${activeMenuClass}`}>
+                className={`bg-white h-screen fixed top-0 bottom-0 z-10 lg:relative w-full border-r px-10 py-9 transition-all duration-500 ease-in-out ${activeMenuClass}`}>
                 {/* close button */}
                 <button className="block lg:hidden float-right" onClick={() => setOpenMenu(false)}>
                     <VscChromeClose size={25} className="color-gunmetal"/>
