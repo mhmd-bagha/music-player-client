@@ -4,9 +4,9 @@ import ImageSong from '@/public/songs/song.jpg';
 const RecentPlayed = () => {
     return (
         <>
-            <div className="flex justify-between items-center mt-14">
-                <p className="color-gunmetal text-lg font-bold">Recent Played</p>
-                <p className="text-sm color-gunmetal">See All</p>
+            <div className="flex justify-between items-center mt-14 gap-5">
+                <p className="color-gunmetal text-lg font-bold lg:text-sm 2xl:text-lg truncate">Recent Played</p>
+                <p className="text-sm color-gunmetal lg:text-xs 2xl:text-sm truncate">See All</p>
             </div>
             {/* songs */}
             <div className="mt-6">
