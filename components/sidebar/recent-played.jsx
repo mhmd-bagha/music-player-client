@@ -20,18 +20,18 @@ const RecentPlayed = () => {
             <div className="mt-6">
                 {/* song */}
                 {recentPlayedSong.map((song, index) => (
-                    <div className="flex justify-between items-center py-2" key={index}>
-                        {/* image and name */}
-                        <div className="flex justify-center items-center cursor-pointer">
+                    <div className="grid grid-flow-col grid-cols-1 py-2" key={index}>
+                        <div className="flex items-center pr-3">
                             <Image src={song.image} alt={song.name} className="w-12 h-12 rounded" width={200}
                                    height={200}/>
-                            <div className="pl-4">
-                                <p className="text-sm color-gunmetal">{song.name}</p>
-                                <p className="color-crayola text-xs">{song.singer}</p>
+                            {/* song name and singer name */}
+                            <div className="pl-3 truncate">
+                                <p className="text-sm color-gunmetal truncate">{song.name}</p>
+                                <p className="color-crayola text-xs truncate">{song.singer}</p>
                             </div>
                         </div>
                         {/* time */}
-                        <p className="text-xs color-gunmetal">{song.played_time} ago</p>
+                        <p className="text-xs color-gunmetal truncate">{song.played_time} ago</p>
                     </div>
                 ))}
             </div>
