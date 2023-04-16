@@ -6,17 +6,17 @@ on:
   pull_request:
     branches: [ "deploy" ]
 
-    jobs:
-      deploy:
-        runs-on: ubuntu-latest
-        name: Deploy project to surge
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy project to surge
 
-        steps:
-          - uses: actions@checkout@v3
-          - uses: actions@setup-node@v3
-            with:
-              node-version: 19
-          - run: npm i -g surge
-          - run: npm install
-          - run: npm run export
-          - run: surge ./out/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
+    steps:
+      - uses: actions@checkout@v3
+      - uses: actions@setup-node@v3
+        with:
+          node-version: 19
+      - run: npm i -g surge
+      - run: npm install
+      - run: npm run export
+      - run: surge ./out/ ${{ secrets.SURGE_DOMAIN }} --token ${{ secrets.SURGE_TOKEN }}
