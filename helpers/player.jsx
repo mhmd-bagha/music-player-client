@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useRef, useState} from "react";
+import {useEffect, useReducer, useRef} from "react";
 import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {CiPause1, CiPlay1, CiShare1, CiVolume, CiVolumeHigh, CiVolumeMute} from "react-icons/ci";
