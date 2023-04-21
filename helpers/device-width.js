@@ -1,4 +1,4 @@
-import {useCallback, useLayoutEffect, useRef, useState} from "react";
+import {useCallback, useEffect, useRef, useState} from "react";
 
 const useDeviceWidth = () => {
     const [width, setWidth] = useState(typeof window !== "undefined" ? window.innerWidth : null);
@@ -21,7 +21,7 @@ const useDeviceWidth = () => {
         }
     }, [width]);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         const handleResize = () => setWidth(window.innerWidth);
         handleResize();
 

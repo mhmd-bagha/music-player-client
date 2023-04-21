@@ -15,7 +15,7 @@ const Home = () => {
                 {/* song popular */}
                 <SongPopular/>
                 {/* player */}
-                <PlayerView src='/musics/in-the-end.mp3'/>
+                <PlayerView/>
             </div>
         </>
     )

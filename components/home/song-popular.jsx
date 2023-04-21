@@ -5,15 +5,50 @@ import NumberFormat from "@/helpers/number-format";
 import {useState} from "react";
 import styles from "Styles/Home.module.scss";
 import {CiPlay1} from "react-icons/ci";
+import {useGlobalContext} from "@/context/store";
 
 const SongPopular = () => {
+    const {setSongSrc, setSongPlay} = useGlobalContext()
     const [songLiked, setSongLiked] = useState(false)
     const songs = [
-        {id: 1, name: "Dream On", image: '/songs/song.jpg', count_broadcast: 6085698, time: '2:10'},
-        {id: 2, name: "Pop Brandneu", image: '/songs/song.jpg', count_broadcast: 59929829, time: '3:45'},
-        {id: 3, name: "Wilde Herzen", image: '/songs/song.jpg', count_broadcast: 7724557, time: '1:56'},
-        {id: 4, name: "Wildest Dreams (Taylor's Version)", image: '/songs/song.jpg', count_broadcast: 17858, time: '3:00'},
+        {
+            id: 1,
+            name: "Dream On",
+            image: '/songs/song.jpg',
+            count_broadcast: 6085698,
+            time: '2:10',
+            src: '/musics/in-the-end.mp3'
+        },
+        {
+            id: 2,
+            name: "Pop Brandneu",
+            image: '/songs/song.jpg',
+            count_broadcast: 59929829,
+            time: '3:45',
+            src: '/musics/in-the-end.mp3'
+        },
+        {
+            id: 3,
+            name: "Wilde Herzen",
+            image: '/songs/song.jpg',
+            count_broadcast: 7724557,
+            time: '1:56',
+            src: '/musics/in-the-end.mp3'
+        },
+        {
+            id: 4,
+            name: "Wildest Dreams (Taylor's Version)",
+            image: '/songs/song.jpg',
+            count_broadcast: 17858,
+            time: '3:00',
+            src: '/musics/in-the-end.mp3'
+        },
     ]
+
+    const playSong = (songSrc) => {
+        setSongSrc(songSrc)
+        setSongPlay(true)
+    }
 
     return (
         <>
@@ -27,7 +62,8 @@ const SongPopular = () => {
                     {songs.map((song, index) => (
                         <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 my-3" key={index}>
                             {/* number, image and name  */}
-                            <div className={`${styles.play_popular_song_button} flex items-center cursor-pointer`}>
+                            <div className={`${styles.play_popular_song_button} flex items-center cursor-pointer`}
+                                 onClick={() => playSong(song.src)}>
                                 <p className="color-gunmetal text-sm font-medium pr-5 hidden lg:block">{song.id}</p>
                                 <Image src={song.image} alt={song.name} className="w-12 h-12 rounded" width={200}
                                        height={200}/>

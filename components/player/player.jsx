@@ -1,10 +1,10 @@
 import Player from "@/helpers/player";
 
-const PlayerView = ({src}) => {
+const PlayerView = () => {
     return (
         <>
             <div className="border-t py-10 px-3 lg:px-14">
-                <Player src={src}/>
+                <Player/>
             </div>
         </>
     )

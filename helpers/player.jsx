@@ -1,8 +1,9 @@
-import {useEffect, useReducer, useRef} from "react";
+import {useCallback, useEffect, useReducer, useRef} from "react";
 import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {CiPause1, CiPlay1, CiShare1, CiVolume, CiVolumeHigh, CiVolumeMute} from "react-icons/ci";
 import {RiPlayListLine} from "react-icons/ri";
+import {useGlobalContext} from "@/context/store";
 
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
@@ -31,16 +32,23 @@ const reducer = (state = InitialState, action) => {
     }
 }
 
-const Player = ({src}) => {
+const Player = () => {
+    const {songSrc: src, songPlay} = useGlobalContext()
     const [state, dispatch] = useReducer(reducer, InitialState)
     const playerRef = useRef(null)
     const volumeRef = useRef(null)
     const defaultStepVolume = 0.02
 
+    const existSongSrc = () => src === ''
+
     const togglePlay = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
         dispatch({type: SET_PLAY, payload: !state.play})
     }
+
+    const playSongFromContext = useCallback(() => {
+        if (songPlay) togglePlay()
+    }, [songPlay])
 
     const pauseAudio = () => {
         playerRef.current.pause()
@@ -94,7 +102,8 @@ const Player = ({src}) => {
 
     useEffect(() => {
         handleDuration()
-    }, [])
+        playSongFromContext()
+    }, [playSongFromContext])
 
     return (
         <>
@@ -120,7 +129,7 @@ const Player = ({src}) => {
                         </button>
 
                         {/* toggle music */}
-                        <button onClick={togglePlay}>
+                        <button onClick={togglePlay} disabled={existSongSrc()}>
                             {state.play ? <CiPause1 className="color-gunmetal" size={27}/> :
                                 <CiPlay1 className="color-gunmetal" size={27}/>}
                         </button>
@@ -151,9 +160,9 @@ const Player = ({src}) => {
                     <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
                     {/* change time */}
                     <input type="range" min={0} max={state.duration} value={state.currentTime} onChange={changedRange}
-                           className={styles.buffer_range_bar}/>
+                           className={styles.buffer_range_bar} disabled={existSongSrc()}/>
                     {/* all time */}
-                    <p className="text-xs color-gunmetal">{formatTime(state.duration)}</p>
+                    <p className="text-xs color-gunmetal">{formatTime(existSongSrc() ? 0 : state.duration)}</p>
                 </div>
             </div>
             {/* audio player */}
