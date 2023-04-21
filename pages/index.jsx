@@ -7,7 +7,7 @@ const Home = () => {
 
     return (
         <>
-            <div className="col-span-12 mt-8">
+            <div className="col-span-12 mt-2 lg:mt-8">
                 {/* searchbar */}
                 <Searchbar/>
                 {/* popular artist */}
@@ -15,7 +15,7 @@ const Home = () => {
                 {/* song popular */}
                 <SongPopular/>
                 {/* player */}
-                <PlayerView src='/musics/in-the-end.mp3'/>
+                <PlayerView/>
             </div>
         </>
     )

@@ -1,8 +1,9 @@
-import {useEffect, useReducer, useRef, useState} from "react";
+import {useCallback, useEffect, useReducer, useRef} from "react";
 import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {CiPause1, CiPlay1, CiShare1, CiVolume, CiVolumeHigh, CiVolumeMute} from "react-icons/ci";
 import {RiPlayListLine} from "react-icons/ri";
+import {useGlobalContext} from "@/context/store";
 
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
@@ -31,16 +32,23 @@ const reducer = (state = InitialState, action) => {
     }
 }
 
-const Player = ({src}) => {
+const Player = () => {
+    const {songSrc: src, songPlay} = useGlobalContext()
     const [state, dispatch] = useReducer(reducer, InitialState)
     const playerRef = useRef(null)
     const volumeRef = useRef(null)
     const defaultStepVolume = 0.02
 
+    const existSongSrc = () => src === ''
+
     const togglePlay = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
         dispatch({type: SET_PLAY, payload: !state.play})
     }
+
+    const playSongFromContext = useCallback(() => {
+        if (songPlay) togglePlay()
+    }, [songPlay])
 
     const pauseAudio = () => {
         playerRef.current.pause()
@@ -94,65 +102,68 @@ const Player = ({src}) => {
 
     useEffect(() => {
         handleDuration()
-    }, [])
+        playSongFromContext()
+    }, [playSongFromContext])
 
     return (
         <>
-            {/* controls */}
-            <div className="flex justify-between items-center mb-5">
-                {/* play list, share song */}
-                <div className="flex items-center gap-5">
-                    {/* playlist */}
-                    <button className="">
-                        <RiPlayListLine size={24} className="color-gunmetal"/>
-                    </button>
-                    {/* share song */}
-                    <button className="">
-                        <CiShare1 size={24} className="color-gunmetal"/>
-                    </button>
-                </div>
-                {/* toggle play and next and back */}
-                <div className="flex items-center gap-5">
-                    {/* back music */}
-                    <button>
-                        <FiSkipBack className="color-gunmetal" size={24}/>
-                    </button>
+            <div className="grid grid-cols-1">
+                {/* controls */}
+                <div className="flex justify-between items-center mb-5">
+                    {/* play list, share song */}
+                    <div className="flex items-center gap-5">
+                        {/* playlist */}
+                        <button className="">
+                            <RiPlayListLine size={24} className="color-gunmetal"/>
+                        </button>
+                        {/* share song */}
+                        <button className="">
+                            <CiShare1 size={24} className="color-gunmetal"/>
+                        </button>
+                    </div>
+                    {/* toggle play and next and back */}
+                    <div className="flex items-center gap-5">
+                        {/* back music */}
+                        <button>
+                            <FiSkipBack className="color-gunmetal" size={24}/>
+                        </button>
 
-                    {/* toggle music */}
-                    <button onClick={togglePlay}>
-                        {state.play ? <CiPause1 className="color-gunmetal" size={27}/> :
-                            <CiPlay1 className="color-gunmetal" size={27}/>}
-                    </button>
+                        {/* toggle music */}
+                        <button onClick={togglePlay} disabled={existSongSrc()}>
+                            {state.play ? <CiPause1 className="color-gunmetal" size={27}/> :
+                                <CiPlay1 className="color-gunmetal" size={27}/>}
+                        </button>
 
-                    {/* next music */}
-                    <button>
-                        <FiSkipForward className="color-gunmetal" size={24}/>
-                    </button>
+                        {/* next music */}
+                        <button>
+                            <FiSkipForward className="color-gunmetal" size={24}/>
+                        </button>
+                    </div>
+                    {/*  control sound  */}
+                    <div className="flex items-center gap-5 hidden lg:flex col-span-2">
+                        <button className="sound_button" onClick={decreaseVolume}>
+                            {!state.statusVolume ?
+                                <CiVolumeMute size={19} className="color-gunmetal"/> :
+                                <CiVolume size={19} className="color-gunmetal"/>}
+                        </button>
+                        <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
+                               step={defaultStepVolume}
+                               onChange={updateVolume} value={state.volume}/>
+                        <button className="sound_button" onClick={increaseVolume}>
+                            <CiVolumeHigh size={19} className="color-gunmetal"/>
+                        </button>
+                    </div>
                 </div>
-                {/*  control sound  */}
-                <div className="flex items-center gap-5">
-                    <button className="sound_button" onClick={decreaseVolume}>
-                        {!state.statusVolume ?
-                            <CiVolumeMute size={19} className="color-gunmetal"/> :
-                            <CiVolume size={19} className="color-gunmetal"/>}
-                    </button>
-                    <input ref={volumeRef} type="range" className={styles.buffer_range_bar} min={0} max={1}
-                           step={defaultStepVolume}
-                           onChange={updateVolume} value={state.volume}/>
-                    <button className="sound_button" onClick={increaseVolume}>
-                        <CiVolumeHigh size={19} className="color-gunmetal"/>
-                    </button>
+                {/* time buffer */}
+                <div className="flex justify-center items-center w-full gap-5">
+                    {/* current time */}
+                    <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
+                    {/* change time */}
+                    <input type="range" min={0} max={state.duration} value={state.currentTime} onChange={changedRange}
+                           className={styles.buffer_range_bar} disabled={existSongSrc()}/>
+                    {/* all time */}
+                    <p className="text-xs color-gunmetal">{formatTime(existSongSrc() ? 0 : state.duration)}</p>
                 </div>
-            </div>
-            {/* time buffer */}
-            <div className="flex justify-center items-center w-full gap-5">
-                {/* current time */}
-                <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
-                {/* change time */}
-                <input type="range" min={0} max={state.duration} value={state.currentTime} onChange={changedRange}
-                       className={styles.buffer_range_bar}/>
-                {/* all time */}
-                <p className="text-xs color-gunmetal">{formatTime(state.duration)}</p>
             </div>
             {/* audio player */}
             <audio ref={playerRef} src={src} onTimeUpdate={handleCurrentTime} onEnded={pauseAudio}
