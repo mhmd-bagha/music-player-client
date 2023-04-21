@@ -37,6 +37,8 @@ const Player = ({src}) => {
     const volumeRef = useRef(null)
     const defaultStepVolume = 0.02
 
+    const existSongSrc = () => src === ''
+
     const togglePlay = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
         dispatch({type: SET_PLAY, payload: !state.play})
@@ -120,7 +122,7 @@ const Player = ({src}) => {
                         </button>
 
                         {/* toggle music */}
-                        <button onClick={togglePlay}>
+                        <button onClick={togglePlay} disabled={existSongSrc()}>
                             {state.play ? <CiPause1 className="color-gunmetal" size={27}/> :
                                 <CiPlay1 className="color-gunmetal" size={27}/>}
                         </button>
@@ -151,9 +153,9 @@ const Player = ({src}) => {
                     <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
                     {/* change time */}
                     <input type="range" min={0} max={state.duration} value={state.currentTime} onChange={changedRange}
-                           className={styles.buffer_range_bar}/>
+                           className={styles.buffer_range_bar} disabled={existSongSrc()}/>
                     {/* all time */}
-                    <p className="text-xs color-gunmetal">{formatTime(state.duration)}</p>
+                    <p className="text-xs color-gunmetal">{formatTime(existSongSrc() ? 0 : state.duration)}</p>
                 </div>
             </div>
             {/* audio player */}
