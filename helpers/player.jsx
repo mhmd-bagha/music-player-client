@@ -3,6 +3,7 @@ import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {CiPause1, CiPlay1, CiShare1, CiVolume, CiVolumeHigh, CiVolumeMute} from "react-icons/ci";
 import {RiPlayListLine} from "react-icons/ri";
+import {useGlobalContext} from "@/context/store";
 
 const SET_PLAY = "SET_PLAY";
 const SET_CURRENT_TIME = "SET_CURRENT_TIME";
@@ -31,7 +32,8 @@ const reducer = (state = InitialState, action) => {
     }
 }
 
-const Player = ({src}) => {
+const Player = () => {
+    const {songSrc: src} = useGlobalContext()
     const [state, dispatch] = useReducer(reducer, InitialState)
     const playerRef = useRef(null)
     const volumeRef = useRef(null)
