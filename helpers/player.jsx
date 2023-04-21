@@ -1,4 +1,4 @@
-import {useEffect, useReducer, useRef} from "react";
+import {useCallback, useEffect, useReducer, useRef} from "react";
 import styles from 'Styles/Player.module.scss'
 import {FiSkipBack, FiSkipForward} from "react-icons/fi";
 import {CiPause1, CiPlay1, CiShare1, CiVolume, CiVolumeHigh, CiVolumeMute} from "react-icons/ci";
@@ -33,7 +33,7 @@ const reducer = (state = InitialState, action) => {
 }
 
 const Player = () => {
-    const {songSrc: src} = useGlobalContext()
+    const {songSrc: src, songPlay} = useGlobalContext()
     const [state, dispatch] = useReducer(reducer, InitialState)
     const playerRef = useRef(null)
     const volumeRef = useRef(null)
@@ -45,6 +45,10 @@ const Player = () => {
         (state.play) ? playerRef.current.pause() : playerRef.current.play()
         dispatch({type: SET_PLAY, payload: !state.play})
     }
+
+    const playSongFromContext = useCallback(() => {
+        if (songPlay) togglePlay()
+    }, [songPlay])
 
     const pauseAudio = () => {
         playerRef.current.pause()
@@ -98,7 +102,8 @@ const Player = () => {
 
     useEffect(() => {
         handleDuration()
-    }, [])
+        playSongFromContext()
+    }, [playSongFromContext])
 
     return (
         <>
