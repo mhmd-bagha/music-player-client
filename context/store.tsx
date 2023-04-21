@@ -3,18 +3,23 @@ import {createContext, Dispatch, SetStateAction, useContext, useState} from "rea
 interface ContextProps {
     songSrc: string,
     setSongSrc: Dispatch<SetStateAction<string>>
+    songPlay: boolean,
+    setSongPlay: Dispatch<SetStateAction<boolean>>
 }
 
 const GlobalContext = createContext<ContextProps>({
     songSrc: '',
-    setSongSrc: (): string => ''
+    setSongSrc: (): string => '',
+    songPlay: false,
+    setSongPlay: (): boolean => false,
 })
 
 export const ContextProvider = ({children}) => {
     const [songSrc, setSongSrc] = useState('');
+    const [songPlay, setSongPlay] = useState(false);
 
     return (
-        <GlobalContext.Provider value={{songSrc, setSongSrc}}>
+        <GlobalContext.Provider value={{songSrc, setSongSrc, songPlay, setSongPlay}}>
             {children}
         </GlobalContext.Provider>
     )
