@@ -12,12 +12,12 @@ const RecentPlayed = () => {
 
     return (
         <>
-            <div className="flex justify-between items-center mt-14 gap-5">
+            <div className="flex justify-between items-center mt-10 xl:mt-14 gap-5">
                 <p className="color-gunmetal text-lg font-bold lg:text-sm 2xl:text-lg truncate">Recent Played</p>
                 <p className="text-sm color-gunmetal lg:text-xs 2xl:text-sm truncate">See All</p>
             </div>
             {/* songs */}
-            <div className="mt-6">
+            <div className="mt-5 xl:mt-6">
                 {/* song */}
                 {recentPlayedSong.map((song, index) => (
                     <div className="grid grid-flow-col grid-cols-1 py-2" key={index}>

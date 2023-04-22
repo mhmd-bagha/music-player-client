@@ -52,7 +52,7 @@ const SongPopular = () => {
 
     return (
         <>
-            <div className="my-6 px-4 lg:px-14">
+            <div className="my-2 md:my-6 px-4 lg:px-14">
                 {/* song popular and see all song */}
                 <div className="flex justify-between items-center mb-4 lg:mb-7">
                     <p className="color-gunmetal text-lg font-bold">Popular</p>
