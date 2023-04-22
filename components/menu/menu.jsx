@@ -25,6 +25,44 @@ const Menu = () => {
         }
     }, [openMenu]);
 
+    const menuItems = [
+        {
+            category: 'Main',
+            items: [
+                {
+                    name: 'Home',
+                    icon: <TbSmartHome/>,
+                    url: '/'
+                },
+                {
+                    name: 'Library',
+                    icon: <FiMusic/>,
+                    url: '/library'
+                }
+            ]
+        },
+        {
+            category: 'Your Collection',
+            items: [
+                {
+                    name: 'Liked Songs',
+                    icon: <AiOutlineHeart/>,
+                    url: '/liked-songs'
+                },
+                {
+                    name: 'Favorite Artist',
+                    icon: <BsPersonFillCheck/>,
+                    url: '/favorite-artist'
+                },
+                {
+                    name: 'Playlist',
+                    icon: <TbPlaylist/>,
+                    url: '/playlist'
+                },
+            ]
+        },
+    ]
+
     useEffect(() => {
         // Set openMenu based on device width
         (getDevice() === 'sm' || getDevice() === 'md') ? setOpenMenu(false) : setOpenMenu(undefined)
@@ -44,42 +82,22 @@ const Menu = () => {
                 </button>
                 {/* menu items */}
                 <div className="mb-5">
-                    <div className='my-6'>
-                        <NavLink href="/" className={style.menu_items} activeClassName={style.active}>
-                            <TbSmartHome/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Home</p>
-                        </NavLink>
-                    </div>
-                    <div className='my-6'>
-                        <NavLink href="/library" className={style.menu_items} activeClassName={style.active}>
-                            <FiMusic/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Library</p>
-                        </NavLink>
-                    </div>
-                </div>
-                <div className="mb-5">
-                    <p className={`text-sm lg:text-xs color-crayola py-2`}>Your Collection</p>
-                    <div className='my-6'>
-                        <NavLink href="/liked-songs" className={style.menu_items} activeClassName={style.active}>
-                            <AiOutlineHeart/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Liked
-                                Songs</p>
-                        </NavLink>
-                    </div>
-                    <div className='my-6'>
-                        <NavLink href="/favorite-artist" className={style.menu_items}
-                                 activeClassName={style.active}>
-                            <BsPersonFillCheck/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Favorite
-                                Artist</p>
-                        </NavLink>
-                    </div>
-                    <div className='my-6'>
-                        <NavLink href="/playlist" className={style.menu_items} activeClassName={style.active}>
-                            <TbPlaylist/>
-                            <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>Playlist</p>
-                        </NavLink>
-                    </div>
+                    {menuItems.map((menu_items) => (
+                        <>
+                            {/* category menu */}
+                            <p className={`text-sm lg:text-xs color-crayola py-2`}>{menu_items.category}</p>
+                            {/* items menu */}
+                            {menu_items.items.map((item, index) => (
+                                <div className='my-6' key={index}>
+                                    <NavLink href={item.url} className={style.menu_items}
+                                             activeClassName={style.active}>
+                                        {item.icon}
+                                        <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>{item.name}</p>
+                                    </NavLink>
+                                </div>
+                            ))}
+                        </>
+                    ))}
                 </div>
             </div>
         </>
