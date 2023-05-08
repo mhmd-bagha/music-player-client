@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --electric-red: #E60000;
+    --gunmetal: #292f46;
+    --dark-electric-blue: #636B82;
+    --crayola: #A2ACBF;
+    --anti-flash-white: #F2F3F7;
+}
 
 @font-face {
     font-family: 'nunito';
