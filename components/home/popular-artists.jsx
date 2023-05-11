@@ -16,7 +16,7 @@ const PopularArtists = () => {
         <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-14">
             {artists.map((artist, index) => (
                 <div className="border rounded shadow w-44 px-6 py-5" key={index}>
-                    <Link href={`/album/${artist.url}`} className={`${styles.play_album_artist} w-10 h-10`}>
+                    <Link href={`/album/${artist.url}/${index + 1}`} className={`${styles.play_album_artist} w-10 h-10`}>
                         <Image src={artist.image} alt={artist.name} className="w-32 h-32 rounded-full"
                                width={200} height={200}/>
                         <button className={`${styles.play_button} w-10 h-10`}><CiPlay1 size={22}/></button>
