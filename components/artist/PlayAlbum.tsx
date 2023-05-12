@@ -48,9 +48,9 @@ const PlayAlbum = () => {
                 <BsThreeDots size={25}/>
             </button>
             {/*  */}
-            <div className={`w-full lg:w-40 ${openDropDown ? 'scale-100 block' : 'hidden scale-0'}`}>
+            <div className={`absolute right-0 left-0 bottom-0 lg:relative w-full lg:w-40 ${openDropDown ? 'scale-100 block' : 'hidden scale-0'}`}>
                 <div
-                    className="bg-gunmetal text-anti-flash-white w-full rounded py-2 px-1.5 absolute -translate-x-16 translate-y-6">
+                    className="bg-gunmetal text-anti-flash-white w-full rounded-t lg:rounded py-2 px-1.5 lg:absolute lg:-translate-x-16 lg:translate-y-6">
                     {optionsDropdown.map((option, index) => (
                         <button key={index}
                                 className="text-left py-2 px-2 block w-full rounded hover:bg-dark-electric-blue"
