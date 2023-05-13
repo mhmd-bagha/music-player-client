@@ -1,25 +1,19 @@
-import {createContext, Dispatch, SetStateAction, useContext, useState} from "react";
+import {createContext, useContext, useState} from "react";
+import {song} from "@/context/song";
+import {sidebar} from "@/context/sidebar";
 
-interface ContextProps {
-    songSrc: string,
-    setSongSrc: Dispatch<SetStateAction<string>>
-    songPlay: boolean,
-    setSongPlay: Dispatch<SetStateAction<boolean>>
-}
-
-const GlobalContext = createContext<ContextProps>({
-    songSrc: '',
-    setSongSrc: (): string => '',
-    songPlay: false,
-    setSongPlay: (): boolean => false,
+const GlobalContext = createContext({
+    ...song,
+    ...sidebar
 })
 
 export const ContextProvider = ({children}) => {
-    const [songSrc, setSongSrc] = useState('');
-    const [songPlay, setSongPlay] = useState(false);
+    const [songSrc, setSongSrc] = useState<string>('');
+    const [songPlay, setSongPlay] = useState<boolean | false>(false);
+    const [showSidebar, setShowSidebar] = useState<boolean | true>(true);
 
     return (
-        <GlobalContext.Provider value={{songSrc, setSongSrc, songPlay, setSongPlay}}>
+        <GlobalContext.Provider value={{songSrc, setSongSrc, songPlay, setSongPlay, showSidebar, setShowSidebar}}>
             {children}
         </GlobalContext.Provider>
     )

@@ -81,7 +81,7 @@ const Menu = () => {
     }, [getDevice])
 
     return (
-        <>
+        <div className="w-full lg:w-2/12">
             {/* open button */}
             <button className="flex relative lg:hidden top-10 left-6" onClick={() => setOpenMenu(true)}>
                 <HiBars3 size={25} className="color-gunmetal"/>
@@ -112,7 +112,7 @@ const Menu = () => {
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 
