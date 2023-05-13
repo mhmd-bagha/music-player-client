@@ -9,7 +9,7 @@ const Sidebar = () => {
     return (
         <>
             {/* the sidebar now version hidden for device android */}
-            <div className={`h-screen px-7 lg:px-4 py-9 border-l hidden ${showSidebar ? 'lg:block' : 'hidden'}`}>
+            <div className={`w-full lg:w-2/12 h-screen px-7 lg:px-4 py-9 border-l hidden ${showSidebar ? 'lg:block' : 'hidden'}`}>
                 {/* profile */}
                 <Profile/>
                 {/* recent played */}

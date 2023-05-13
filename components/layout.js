@@ -5,9 +5,9 @@ const Layout = ({children}) => {
     return (
         <>
             <div className="lg:flex">
-                <div className="w-full lg:w-2/12"><Menu/></div>
+                <Menu/>
                 <div className="w-full lg:w-4/6">{children}</div>
-                <div className="w-full lg:w-2/12"><Sidebar/></div>
+                <Sidebar/>
             </div>
         </>
     )
