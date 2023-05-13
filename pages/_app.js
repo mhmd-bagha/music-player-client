@@ -1,5 +1,5 @@
-import 'Styles/globals.scss'
-import 'Styles/import-tailwind.css'
+import 'Styles/_variables.scss'
+import 'Styles/globals.css'
 import Layout from "Component/layout";
 import {ContextProvider} from "@/context/store";
 
