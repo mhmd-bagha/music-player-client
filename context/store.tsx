@@ -1,17 +1,8 @@
-import {createContext, Dispatch, SetStateAction, useContext, useState} from "react";
+import {createContext, useContext, useState} from "react";
+import {song} from "@/context/song";
 
-interface ContextProps {
-    songSrc: string,
-    setSongSrc: Dispatch<SetStateAction<string>>
-    songPlay: boolean,
-    setSongPlay: Dispatch<SetStateAction<boolean>>
-}
-
-const GlobalContext = createContext<ContextProps>({
-    songSrc: '',
-    setSongSrc: (): string => '',
-    songPlay: false,
-    setSongPlay: (): boolean => false,
+const GlobalContext = createContext({
+    ...song,
 })
 
 export const ContextProvider = ({children}) => {
