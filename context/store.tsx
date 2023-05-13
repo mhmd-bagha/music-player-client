@@ -8,8 +8,8 @@ const GlobalContext = createContext({
 })
 
 export const ContextProvider = ({children}) => {
-    const [songSrc, setSongSrc] = useState('');
-    const [songPlay, setSongPlay] = useState(false);
+    const [songSrc, setSongSrc] = useState<string>('');
+    const [songPlay, setSongPlay] = useState<boolean | false>(false);
     const [showSidebar, setShowSidebar] = useState<boolean | true>(true);
 
     return (
