@@ -6,7 +6,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 
 const Login = () => {
-    let validator = object({
+    const validator = object({
         email: string().trim().required(),
         password: string().trim().required()
     })
