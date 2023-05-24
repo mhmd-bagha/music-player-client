@@ -25,7 +25,7 @@ const Login = () => {
                     <p className="text-sm text-dark-electric-blue capitalize">We're a team that guides each other</p>
                 </div>
 
-                <form onSubmit={handleLogin}>
+                <form method="post" onSubmit={handleSubmit(handleLogin)}>
                     {/* email */}
                     <div className="py-3">
                         <label htmlFor="email" className="text-dark-electric-blue">Email</label>
@@ -51,7 +51,7 @@ const Login = () => {
                         Forgot password?
                     </Link>
                     {/* login button */}
-                    <button type="button"
+                    <button type="submit"
                             className="bg-gunmetal hover:bg-dark-electric-blue text-anti-flash-white w-full py-2.5 rounded-lg mt-10 transition">
                         Sing in
                     </button>
