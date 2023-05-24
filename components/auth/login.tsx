@@ -4,8 +4,10 @@ import {AiOutlineLock} from "react-icons/ai";
 import {object, string} from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
+import {ElementRef, useRef} from "react";
 
 const Login = () => {
+    const loginBtnRef = useRef<ElementRef<any> | null>()
     const validator = object({
         email: string().trim().required(),
         password: string().trim().required()
@@ -14,6 +16,7 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validator)})
 
     const handleLogin = () => {
+        loginBtnRef.current.disabled = true
     }
 
     return (
@@ -52,7 +55,7 @@ const Login = () => {
                     </Link>
                     {/* login button */}
                     <button type="submit"
-                            className="bg-gunmetal hover:bg-dark-electric-blue text-anti-flash-white w-full py-2.5 rounded-lg mt-10 transition">
+                            className="bg-gunmetal hover:bg-dark-electric-blue text-anti-flash-white w-full py-2.5 rounded-lg mt-10 transition" ref={loginBtnRef}>
                         Sing in
                     </button>
                 </form>
