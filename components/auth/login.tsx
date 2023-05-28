@@ -5,19 +5,50 @@ import {object, string} from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 import {ElementRef, useRef} from "react";
+import {auth} from "@/lib/auth";
+import {toast} from "react-toastify";
 
 const Login = () => {
     const loginBtnRef = useRef<ElementRef<any> | null>()
     const validator = object({
         email: string().trim().required(),
-        password: string().trim().required()
+        password: string().trim().required().min(6)
     })
 
     const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validator)})
 
-    const handleLogin = () => {
+    const handleLogin = (data) => {
         loginBtnRef.current.disabled = true
+
+        auth(data).then((data) => {
+            enableLoginBtn()
+            return toast.success(data.message)
+        }).catch((e) => {
+            enableLoginBtn()
+            handleValidateFormError(e)
+            handleLoginError(e)
+        });
     }
+
+    const handleLoginError = (e) => {
+        if (e.response?.status === 422) {
+            const message = e.response.data.message;
+            return toast.error(message)
+        }
+    }
+
+    const handleValidateFormError = (e) => {
+        if (e.response?.status === 417) {
+            const message = e.response.data.message;
+
+            message.map((errors) => {
+                const key = Object.keys(errors)
+                return toast.error(errors[key]?.[0])
+            })
+        }
+    }
+
+    const enableLoginBtn = () => loginBtnRef.current.disabled = false
 
     return (
         <div className="grid place-items-center h-screen bg-anti-flash-white">
@@ -55,7 +86,8 @@ const Login = () => {
                     </Link>
                     {/* login button */}
                     <button type="submit"
-                            className="bg-gunmetal hover:bg-dark-electric-blue text-anti-flash-white w-full py-2.5 rounded-lg mt-10 transition" ref={loginBtnRef}>
+                            className="bg-gunmetal hover:bg-dark-electric-blue text-anti-flash-white w-full py-2.5 rounded-lg mt-10 transition"
+                            ref={loginBtnRef}>
                         Sing in
                     </button>
                 </form>
