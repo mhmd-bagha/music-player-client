@@ -8,7 +8,6 @@ import {ElementRef, useRef} from "react";
 import {auth} from "@/lib/auth";
 import {toast} from "react-toastify";
 import {useRouter} from "next/router";
-import Cookies from 'js-cookie';
 
 const Login = () => {
     const loginBtnRef = useRef<ElementRef<any> | null>()
@@ -16,10 +15,8 @@ const Login = () => {
         email: string().trim().required(),
         password: string().trim().required().min(6)
     })
-    const userAuthToken = !!Cookies.get('auth')
     const router = useRouter()
 
-    if (userAuthToken) router.push('/')
 
     const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validator)})
 
