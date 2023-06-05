@@ -17,7 +17,7 @@ const Profile = () => {
                 <div className="flex items-center">
                     <Image src={ImagePerson} alt={'elon musk'} className="w-12 h-12 rounded-3xl"/>
                     <div className="pl-3.5 lg:hidden 2xl:block">
-                        {(user.last_name !== null) ?
+                        {(user && user?.last_name !== null) ?
                             <p className="color-gunmetal text-sm font-bold">{user.last_name}</p> :
                             <Link href="/profile">Change name</Link>}
                         <p className="color-crayola text-sm xl:text-xs">Premium Member.</p>
