@@ -21,3 +21,12 @@ export const user = async (): Promise<userType> => {
 
     return res.data
 }
+
+export const refreshToken = async () => {
+    const res = await axiosInstance.post('/auth/refresh-token');
+    const newToken = res.data.token.access_token
+
+    Cookies.set('auth', newToken)
+
+    return newToken
+}
