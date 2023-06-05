@@ -5,7 +5,7 @@ import {set} from "@/redux/reducers/user";
 import {useAppDispatch, useAppSelector} from "@/hooks/index";
 import Cookies from 'js-cookie';
 
-const useUser = () => {
+const useUser = (): authType => {
     const state = useAppSelector((state) => state.user)
     const dispatch = useAppDispatch()
 
@@ -24,7 +24,7 @@ const useUser = () => {
 
     }, [])
 
-    return [state.user, authenticate]
+    return {user: state.user, auth: authenticate()}
 }
 
 export default useUser
