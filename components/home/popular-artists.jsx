@@ -2,30 +2,44 @@ import Link from "next/link";
 import styles from "Styles/Home.module.scss";
 import Image from "next/image";
 import {CiPlay1} from "react-icons/ci";
+import {useEffect} from "react";
+import {albums as GetAlbums} from "@/lib/album";
+import {set} from "@/redux/reducers/album";
+import {useAppDispatch, useAppSelector} from "@/hooks";
 
 const PopularArtists = () => {
-    const artists = [
-        {name: 'apache 207', image: '/artists/apache207.jpg', 'url': 'apache-207', 'label': 'artist'},
-        {name: 'bonez mc', image: '/artists/bonez-mc.jpg', 'url': 'bonez-mc', 'label': 'artist'},
-        {name: 'luciano', image: '/artists/luciano.jpg', 'url': 'luciano', 'label': 'artist'},
-        {name: 'ref camora', image: '/artists/raf-camora.jpg', 'url': 'ref-camora', 'label': 'artist'},
-        {name: 'sido', image: '/artists/sido.jpg', 'url': 'sido', 'label': 'artist'},
-    ]
+    const albumState = useAppSelector(state => state.album)
+    const dispatch = useAppDispatch()
+
+    const getAlbums = async () => {
+        if (albumState.albums.length === 0) {
+            const albums = await GetAlbums()
+
+            if (albums.status === 200)
+                return dispatch(set(albums.data))
+        }
+    }
+
+    useEffect(() => {
+        getAlbums()
+    }, [])
 
     return (
         <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-14">
-            {artists.map((artist, index) => (
+            {albumState.albums.map((album, index) => (
                 <div className="border rounded shadow w-44 px-6 py-5" key={index}>
-                    <Link href={`/album/${artist.url}/${index + 1}`} className={`${styles.play_album_artist} w-10 h-10`}>
-                        <Image src={artist.image} alt={artist.name} className="w-32 h-32 rounded-full"
+                    <Link href={`/album/${album.singer_name}/${album.id}`}
+                          className={`${styles.play_album_artist} w-10 h-10`}>
+                        <Image src={album.singer_image} alt={album.singer_name} className="w-32 h-32 rounded-full"
                                width={200} height={200}/>
                         <button className={`${styles.play_button} w-10 h-10`}><CiPlay1 size={22}/></button>
                     </Link>
-                    <p className="mt-3 color-gunmetal font-bold capitalize">{artist.name}</p>
-                    <p className="color-crayola capitalize">{artist.label}</p>
+                    <p className="mt-3 color-gunmetal font-bold capitalize">{album.singer_name}</p>
+                    <p className="color-crayola capitalize">artist</p>
                 </div>
             ))}
         </div>
     )
 }
+
 export default PopularArtists
