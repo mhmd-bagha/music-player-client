@@ -6,6 +6,7 @@ import {useEffect} from "react";
 import {albums as GetAlbums} from "@/lib/album";
 import {set} from "@/redux/reducers/album";
 import {useAppDispatch, useAppSelector} from "@/hooks";
+import Slug from "@/helpers/slug";
 
 const PopularArtists = () => {
     const albumState = useAppSelector(state => state.album)
@@ -28,7 +29,7 @@ const PopularArtists = () => {
         <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-14">
             {albumState.albums.map((album, index) => (
                 <div className="border rounded shadow w-44 px-6 py-5" key={index}>
-                    <Link href={`/album/${album.singer_name}/${album.id}`}
+                    <Link href={`/album/${Slug(album.singer_name)}/${album.id}`}
                           className={`${styles.play_album_artist} w-10 h-10`}>
                         <Image src={album.singer_image} alt={album.singer_name} className="w-32 h-32 rounded-full"
                                width={200} height={200}/>
