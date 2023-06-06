@@ -1,7 +1,15 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface InitialState {
-    albums: []
+    albums: [],
+    album?: {
+        id?: number,
+        singer_name?: string,
+        singer_image?: string,
+        singer_type?: string,
+        created_at?: string,
+        updated_at?: string,
+    }
 }
 
 const initialState: InitialState = {
