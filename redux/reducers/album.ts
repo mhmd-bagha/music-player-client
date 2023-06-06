@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface InitialState {
-
+    albums: []
 }
 
 const initialState: InitialState = {
@@ -12,7 +12,9 @@ const albumSlice = createSlice({
     name: 'album',
     initialState,
     reducers: {
-        set: (state, action: PayloadAction<[]>) => state.albums = action.payload
+        set: (state, action: PayloadAction<[]>) => {
+            state.albums = action.payload
+        }
     }
 });
 
