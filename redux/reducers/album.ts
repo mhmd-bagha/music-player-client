@@ -22,10 +22,14 @@ const albumSlice = createSlice({
     reducers: {
         set: (state, action: PayloadAction<[]>) => {
             state.albums = action.payload
+        },
+
+        albumById: (state, action: PayloadAction<number>) => {
+            state.album = state.albums.find(({id}) => id === action.payload)
         }
     }
 });
 
-export const {set} = albumSlice.actions
+export const {set, songsAlbum} = albumSlice.actions
 
 export default albumSlice.reducer
