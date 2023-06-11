@@ -13,7 +13,8 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-    albums: []
+    albums: [],
+    album: {}
 }
 
 const albumSlice = createSlice({
