@@ -4,10 +4,9 @@ import Songs from "Component/artist/songs";
 import PLayerView from "Component/player/player";
 import {useGlobalContext} from "@/context/store";
 import {useEffect} from "react";
-import {GetServerSideProps} from "next";
-import context from "react-redux/src/components/Context";
+import {songByAlbum} from "@/lib/album";
 
-const Album = () => {
+const Album = ({songs}) => {
     const {setShowSidebar} = useGlobalContext()
 
     useEffect(() => {
@@ -22,18 +21,16 @@ const Album = () => {
         <>
             <ArtistImage/>
             <PlayAlbum/>
-            <Songs/>
+            <Songs songs={songs.data}/>
             <PLayerView/>
         </>
     )
 }
 
-export const getServerSideProps = (context) => {
-    const {} = context.params
+export const getServerSideProps = async (context) => {
+    const {albumId} = context.params
 
-    console.log(albumId)
-
-    const songs = [{}]
+    const songs = await songByAlbum(albumId)
 
     return {
         props: {
