@@ -5,17 +5,23 @@ import PLayerView from "Component/player/player";
 import {useGlobalContext} from "@/context/store";
 import {useEffect} from "react";
 import {songByAlbum} from "@/lib/album";
+import {useAppDispatch} from "@/hooks";
+import {albumById} from "@/redux/reducers/album";
+import {useRouter} from "next/router";
 
 const Album = ({songs}) => {
     const {setShowSidebar} = useGlobalContext()
+    const dispatch = useAppDispatch()
+    const {albumId} = useRouter().query
 
     useEffect(() => {
         setShowSidebar(false)
+        dispatch(albumById(albumId))
 
         return () => {
             setShowSidebar(true)
         }
-    }, [setShowSidebar])
+    }, [albumId, dispatch, setShowSidebar])
 
     return (
         <>
