@@ -30,6 +30,6 @@ const albumSlice = createSlice({
     }
 });
 
-export const {set, songsAlbum} = albumSlice.actions
+export const {set, albumById} = albumSlice.actions
 
 export default albumSlice.reducer
