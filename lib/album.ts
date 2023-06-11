@@ -5,3 +5,9 @@ export const albums = async () => {
 
     return res.data
 }
+
+export const songByAlbum = async (id) => {
+    const res = await axiosInstance.post(`/album/get/${id}`);
+
+    return res.data
+}
