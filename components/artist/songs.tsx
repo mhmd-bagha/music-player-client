@@ -5,55 +5,11 @@ import NumberFormat from "@/helpers/number-format";
 import {CiPlay1} from "react-icons/ci";
 import {AiOutlineHeart} from "react-icons/ai";
 import {useGlobalContext} from "@/context/store";
+import SongType from '@/types/songs'
 
-const Songs = () => {
+const Songs = ({songs}) => {
     const {setSongSrc, setSongPlay} = useGlobalContext()
     const [songLiked, setSongLiked] = useState(false)
-
-    interface Songs {
-        id: number,
-        name: string,
-        image: string,
-        count_broadcast: number,
-        time: string,
-        src: string
-
-    }
-
-    const songs: Songs[] = [
-        {
-            id: 1,
-            name: "Dream On",
-            image: '/songs/song.jpg',
-            count_broadcast: 6085698,
-            time: '2:10',
-            src: '/musics/in-the-end.mp3'
-        },
-        {
-            id: 2,
-            name: "Pop Brandneu",
-            image: '/songs/song.jpg',
-            count_broadcast: 59929829,
-            time: '3:45',
-            src: '/musics/in-the-end.mp3'
-        },
-        {
-            id: 3,
-            name: "Wilde Herzen",
-            image: '/songs/song.jpg',
-            count_broadcast: 7724557,
-            time: '1:56',
-            src: '/musics/in-the-end.mp3'
-        },
-        {
-            id: 4,
-            name: "Wildest Dreams (Taylor's Version)",
-            image: '/songs/song.jpg',
-            count_broadcast: 17858,
-            time: '3:00',
-            src: '/musics/in-the-end.mp3'
-        },
-    ]
 
     const playSong = (src: string) => {
         setSongSrc(src)
@@ -64,7 +20,7 @@ const Songs = () => {
         <>
             <div className="py-2 px-6 lg:px-8">
                 <div className="h-80 overflow-y-scroll">
-                    {songs.map((song, index) => (
+                    {songs.map((song: SongType, index) => (
                         <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 my-3" key={index}>
                             {/* number, image and name  */}
                             <div className={`${styles.play_popular_song_button} flex items-center cursor-pointer`}
