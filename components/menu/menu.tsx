@@ -8,6 +8,8 @@ import {VscChromeClose} from "react-icons/vsc";
 import {useEffect, useMemo, useState} from "react";
 import useDeviceWidth from "@/helpers/device-width";
 import {HiBars3} from "react-icons/hi2";
+import {IconType} from "react-icons";
+import {useGlobalContext} from "@/context/store";
 
 const Menu = () => {
     const [openMenu, setOpenMenu] = useState(undefined)
@@ -25,18 +27,31 @@ const Menu = () => {
         }
     }, [openMenu]);
 
-    const menuItems = [
+    const {showMenu} = useGlobalContext()
+
+    interface Items {
+        name: string,
+        icon: IconType,
+        url: string
+    }
+
+    interface MenuItems {
+        category: string,
+        items: Items[],
+    }
+
+    const menuItems: MenuItems[] = [
         {
             category: 'Main',
             items: [
                 {
                     name: 'Home',
-                    icon: <TbSmartHome/>,
+                    icon: TbSmartHome,
                     url: '/'
                 },
                 {
                     name: 'Library',
-                    icon: <FiMusic/>,
+                    icon: FiMusic,
                     url: '/library'
                 }
             ]
@@ -46,17 +61,17 @@ const Menu = () => {
             items: [
                 {
                     name: 'Liked Songs',
-                    icon: <AiOutlineHeart/>,
+                    icon: AiOutlineHeart,
                     url: '/liked-songs'
                 },
                 {
                     name: 'Favorite Artist',
-                    icon: <BsPersonFillCheck/>,
+                    icon: BsPersonFillCheck,
                     url: '/favorite-artist'
                 },
                 {
                     name: 'Playlist',
-                    icon: <TbPlaylist/>,
+                    icon: TbPlaylist,
                     url: '/playlist'
                 },
             ]
@@ -69,7 +84,7 @@ const Menu = () => {
     }, [getDevice])
 
     return (
-        <>
+        <div className={`w-full lg:w-2/12 ${!showMenu && 'hidden'}`}>
             {/* open button */}
             <button className="flex relative lg:hidden top-10 left-6" onClick={() => setOpenMenu(true)}>
                 <HiBars3 size={25} className="color-gunmetal"/>
@@ -82,8 +97,8 @@ const Menu = () => {
                 </button>
                 {/* menu items */}
                 <div className="mb-5">
-                    {menuItems.map((menu_items) => (
-                        <>
+                    {menuItems.map((menu_items, index) => (
+                        <div key={index}>
                             {/* category menu */}
                             <p className={`text-sm lg:text-xs color-crayola py-2`}>{menu_items.category}</p>
                             {/* items menu */}
@@ -91,16 +106,16 @@ const Menu = () => {
                                 <div className='my-6' key={index}>
                                     <NavLink href={item.url} className={style.menu_items}
                                              activeClassName={style.active}>
-                                        {item.icon}
+                                        <item.icon/>
                                         <p className={`text-sm truncate pl-5 lg:pl-2 xl:pl-4 transition ease-in duration-500`}>{item.name}</p>
                                     </NavLink>
                                 </div>
                             ))}
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

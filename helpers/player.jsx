@@ -159,7 +159,8 @@ const Player = () => {
                     {/* current time */}
                     <p className="text-xs color-gunmetal pr-4">{formatTime(state.currentTime)}</p>
                     {/* change time */}
-                    <input type="range" min={0} max={state.duration} value={state.currentTime} onChange={changedRange}
+                    <input type="range" min={0} max={(!!state.duration) ? state.duration : 0} value={state.currentTime}
+                           onChange={changedRange}
                            className={styles.buffer_range_bar} disabled={existSongSrc()}/>
                     {/* all time */}
                     <p className="text-xs color-gunmetal">{formatTime(existSongSrc() ? 0 : state.duration)}</p>
