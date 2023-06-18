@@ -5,3 +5,9 @@ const getSongsLiked = async () => {
 
     return res.data
 }
+
+const addSongLike = async () => {
+    const res = await axiosInstance.post('/album/song/like/add');
+
+    return res.data
+}
