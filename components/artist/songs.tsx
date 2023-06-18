@@ -6,8 +6,11 @@ import {CiPlay1} from "react-icons/ci";
 import {AiOutlineHeart} from "react-icons/ai";
 import {useGlobalContext} from "@/context/store";
 import SongType from '@/types/songs'
+import {useAppSelector} from "@/hooks";
+import {addSongLike} from "@/lib/songsPupolar";
 
 const Songs = ({songs}) => {
+    const songsLiked = useAppSelector(state => state.songPopular)
     const {setSongSrc, setSongPlay} = useGlobalContext()
     const [songLiked, setSongLiked] = useState(false)
 
@@ -36,7 +39,7 @@ const Songs = ({songs}) => {
                             <p className="color-crayola hidden lg:block">{NumberFormat(song.count_broadcast)}</p>
                             {/* like and song time */}
                             <div className="flex items-center">
-                                <button onClick={() => setSongLiked(!songLiked)}>
+                                <button onClick={() => addSongLike(song.id)}>
                                     <AiOutlineHeart size={20}
                                                     className={songLiked ? 'bg-heart-active-icon' : 'color-gunmetal'}/>
                                 </button>
