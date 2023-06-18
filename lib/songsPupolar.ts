@@ -11,3 +11,9 @@ const addSongLike = async () => {
 
     return res.data
 }
+
+const removeSongLike = async () => {
+    const res = await axiosInstance.post('/album/song/like/remove');
+
+    return res.data
+}
