@@ -14,10 +14,13 @@ const songsPopularSlice = createSlice({
     reducers: {
         setLike: (state, action: PayloadAction<number>) => {
             state.songs = [...state.songs, action.payload]
+        },
+        removeLike: (state, action: PayloadAction<number>) => {
+            state.songs = state.songs.filter((id) => id !== action.payload)
         }
     }
 })
 
-export const {setLike} = songsPopularSlice.actions
+export const {setLike, removeLike} = songsPopularSlice.actions
 
 export default songsPopularSlice.reducer
