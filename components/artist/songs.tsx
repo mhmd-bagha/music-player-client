@@ -6,8 +6,9 @@ import {AiOutlineHeart} from "react-icons/ai";
 import {useGlobalContext} from "@/context/store";
 import SongType from '@/types/songs'
 import {useAppDispatch, useAppSelector} from "@/hooks";
-import {addSongLike, removeSongLike} from "@/lib/songsPupolar";
+import {addSongLike, getSongsLiked, removeSongLike} from "@/lib/songsPupolar";
 import {removeLike, setLike} from "@/redux/reducers/songs-popular";
+import {useEffect} from "react";
 
 const Songs = ({songs}) => {
     const songsLiked = useAppSelector(state => state.songPopular)
@@ -29,6 +30,14 @@ const Songs = ({songs}) => {
         else
             return await addSongLike(songId).then((res) => res?.status === 200 && dispatch(setLike(songId)))
     }
+
+    const getSongLiked = async () => {
+        await getSongsLiked().then((res) => res?.status === 200 && res.data.map(({id}) => dispatch(setLike(id))))
+    }
+
+    useEffect(() => {
+        getSongLiked()
+    }, [])
 
     return (
         <>
