@@ -10,7 +10,7 @@ export const getSongsLiked = async () => {
 export const addSongLike = async (songId) => {
     const res = await axiosInstance.post('/album/song/like/add', {song_id: songId});
 
-    return (res.data === 200) ? setLike(songId) : res.data
+    return res.status
 }
 
 export const removeSongLike = async () => {
