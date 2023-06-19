@@ -1,23 +1,27 @@
 import Image from "next/image";
 import styles from "Styles/Home.module.scss";
-import {useState} from "react";
 import NumberFormat from "@/helpers/number-format";
 import {CiPlay1} from "react-icons/ci";
 import {AiOutlineHeart} from "react-icons/ai";
 import {useGlobalContext} from "@/context/store";
 import SongType from '@/types/songs'
-import {useAppSelector} from "@/hooks";
+import {useAppDispatch, useAppSelector} from "@/hooks";
 import {addSongLike} from "@/lib/songsPupolar";
+import {setLike} from "@/redux/reducers/songs-popular";
 
 const Songs = ({songs}) => {
     const songsLiked = useAppSelector(state => state.songPopular)
+    const dispatch = useAppDispatch()
     const {setSongSrc, setSongPlay} = useGlobalContext()
-    const [songLiked, setSongLiked] = useState(false)
 
+    const existSongLike = (songId) => songsLiked.songs.find((id) => id === songId)
+    
     const playSong = (src: string) => {
         setSongSrc(src)
         setSongPlay(true)
     }
+
+    const songLike = async (songId) => await addSongLike(songId).then((res) => res === 200 && dispatch(setLike(songId)))
 
     return (
         <>
@@ -39,9 +43,9 @@ const Songs = ({songs}) => {
                             <p className="color-crayola hidden lg:block">{NumberFormat(song.count_broadcast)}</p>
                             {/* like and song time */}
                             <div className="flex items-center">
-                                <button onClick={() => addSongLike(song.id)}>
+                                <button onClick={() => songLike(song.id)}>
                                     <AiOutlineHeart size={20}
-                                                    className={songLiked ? 'bg-heart-active-icon' : 'color-gunmetal'}/>
+                                                    className={existSongLike(song.id) ? styles['bg-heart-active-icon'] : 'color-gunmetal'}/>
                                 </button>
                                 <p className="color-gunmetal text-sm pl-6">{song.time}</p>
                             </div>
