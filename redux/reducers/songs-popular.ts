@@ -13,7 +13,7 @@ const songsPopularSlice = createSlice({
     initialState,
     reducers: {
         setLike: (state, action: PayloadAction<number>) => {
-            state.songs = state.songs.push(action.payload)
+            state.songs = [...state.songs, action.payload]
         }
     }
 })
