@@ -18,3 +18,9 @@ export const removeSongLike = async (songId) => {
 
     return res.data
 }
+
+export const songsPopular = async () => {
+    const res = await axiosInstance.post('/album/songs-popular');
+
+    return res.data
+}
