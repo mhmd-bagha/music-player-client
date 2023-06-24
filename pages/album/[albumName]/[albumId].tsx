@@ -16,7 +16,7 @@ const Album = ({songs}) => {
 
     useEffect(() => {
         setShowSidebar(false)
-        dispatch(albumById(albumId))
+        dispatch(albumById(parseInt(albumId)))
 
         return () => {
             setShowSidebar(true)
