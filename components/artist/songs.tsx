@@ -43,7 +43,7 @@ const Songs = ({songs}) => {
 
     useEffect(() => {
         getSongLiked()
-    })
+    }, [getSongLiked])
 
     return (
         <>
