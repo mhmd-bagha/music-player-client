@@ -9,6 +9,7 @@ import {useEffect, useMemo, useState} from "react";
 import useDeviceWidth from "@/helpers/device-width";
 import {HiBars3} from "react-icons/hi2";
 import {IconType} from "react-icons";
+import {useGlobalContext} from "@/context/store";
 
 const Menu = () => {
     const [openMenu, setOpenMenu] = useState(undefined)
@@ -25,6 +26,8 @@ const Menu = () => {
                 return '';
         }
     }, [openMenu]);
+
+    const {showMenu} = useGlobalContext()
 
     interface Items {
         name: string,
@@ -81,7 +84,7 @@ const Menu = () => {
     }, [getDevice])
 
     return (
-        <div className="w-full lg:w-2/12">
+        <div className={`w-full lg:w-2/12 ${!showMenu && 'hidden'}`}>
             {/* open button */}
             <button className="flex relative lg:hidden top-10 left-6" onClick={() => setOpenMenu(true)}>
                 <HiBars3 size={25} className="color-gunmetal"/>

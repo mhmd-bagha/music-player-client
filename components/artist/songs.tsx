@@ -1,70 +1,49 @@
 import Image from "next/image";
 import styles from "Styles/Home.module.scss";
-import {useState} from "react";
 import NumberFormat from "@/helpers/number-format";
 import {CiPlay1} from "react-icons/ci";
 import {AiOutlineHeart} from "react-icons/ai";
 import {useGlobalContext} from "@/context/store";
+import SongType from '@/types/songs'
+import {useAppDispatch, useAppSelector} from "@/hooks";
+import {addSongLike, getSongsLiked, removeSongLike} from "@/lib/songsPupolar";
+import {removeLike, setLike} from "@/redux/reducers/songs-popular";
+import {useEffect} from "react";
 
-const Songs = () => {
+const Songs = ({songs}) => {
+    const songsLiked = useAppSelector(state => state.songPopular)
+    const dispatch = useAppDispatch()
     const {setSongSrc, setSongPlay} = useGlobalContext()
-    const [songLiked, setSongLiked] = useState(false)
 
-    interface Songs {
-        id: number,
-        name: string,
-        image: string,
-        count_broadcast: number,
-        time: string,
-        src: string
-
-    }
-
-    const songs: Songs[] = [
-        {
-            id: 1,
-            name: "Dream On",
-            image: '/songs/song.jpg',
-            count_broadcast: 6085698,
-            time: '2:10',
-            src: '/musics/in-the-end.mp3'
-        },
-        {
-            id: 2,
-            name: "Pop Brandneu",
-            image: '/songs/song.jpg',
-            count_broadcast: 59929829,
-            time: '3:45',
-            src: '/musics/in-the-end.mp3'
-        },
-        {
-            id: 3,
-            name: "Wilde Herzen",
-            image: '/songs/song.jpg',
-            count_broadcast: 7724557,
-            time: '1:56',
-            src: '/musics/in-the-end.mp3'
-        },
-        {
-            id: 4,
-            name: "Wildest Dreams (Taylor's Version)",
-            image: '/songs/song.jpg',
-            count_broadcast: 17858,
-            time: '3:00',
-            src: '/musics/in-the-end.mp3'
-        },
-    ]
+    const existSongLike = (songId) => songsLiked.songs.find((id) => id === songId)
 
     const playSong = (src: string) => {
         setSongSrc(src)
         setSongPlay(true)
     }
 
+    const songLike = async (songId: number) => {
+        const existLike = existSongLike(songId)
+
+        if (existLike)
+            return await removeSongLike(songId).then((res) => res?.status === 200 && dispatch(removeLike(songId)))
+        else
+            return await addSongLike(songId).then((res) => res?.status === 200 && dispatch(setLike(songId)))
+    }
+
+    const getSongLiked = async () => {
+        await getSongsLiked().then((res) => res?.status === 200 && res.data.map(({id}) => dispatch(setLike(id))))
+    }
+
+    useEffect(() => {
+        getSongLiked()
+    }, [])
+
     return (
         <>
             <div className="py-2 px-6 lg:px-8">
                 <div className="h-80 overflow-y-scroll">
-                    {songs.map((song, index) => (
+                    {songs.map((song: SongType, index) => (
                         <div className="grid grid-flow-col grid-cols-1 lg:grid-cols-2 my-3" key={index}>
                             {/* number, image and name  */}
                             <div className={`${styles.play_popular_song_button} flex items-center cursor-pointer`}
@@ -80,9 +59,9 @@ const Songs = () => {
                             <p className="color-crayola hidden lg:block">{NumberFormat(song.count_broadcast)}</p>
                             {/* like and song time */}
                             <div className="flex items-center">
-                                <button onClick={() => setSongLiked(!songLiked)}>
+                                <button onClick={() => songLike(song.id)}>
                                     <AiOutlineHeart size={20}
-                                                    className={songLiked ? 'bg-heart-active-icon' : 'color-gunmetal'}/>
+                                                    className={existSongLike(song.id) ? styles['bg-heart-active-icon'] : 'color-gunmetal'}/>
                                 </button>
                                 <p className="color-gunmetal text-sm pl-6">{song.time}</p>
                             </div>
