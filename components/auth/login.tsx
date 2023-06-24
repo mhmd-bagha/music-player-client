@@ -10,7 +10,7 @@ import {toast} from "react-toastify";
 import {useRouter} from "next/router";
 
 const Login = () => {
-    const loginBtnRef = useRef<ElementRef<any> | null>()
+    const loginBtnRef = useRef<HTMLButtonElement | null>()
     const validator = object({
         email: string().trim().required(),
         password: string().trim().required().min(6)
@@ -21,7 +21,8 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validator)})
 
     const handleLogin = (data) => {
-        loginBtnRef.current.disabled = true
+        if (loginBtnRef.current)
+            loginBtnRef.current.disabled = true
 
         auth(data).then((data) => {
             enableLoginBtn()
@@ -60,7 +61,8 @@ const Login = () => {
                 {/* title */}
                 <div className="text-center pb-6">
                     <p className="text-lg text-gunmetal font-black">You must Sign In to join</p>
-                    <p className="text-sm text-dark-electric-blue capitalize">We&apos;re a team that guides each other</p>
+                    <p className="text-sm text-dark-electric-blue capitalize">We&apos;re a team that guides each
+                        other</p>
                 </div>
 
                 <form method="post" onSubmit={handleSubmit(handleLogin)}>
