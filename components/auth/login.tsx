@@ -4,7 +4,7 @@ import {AiOutlineLock} from "react-icons/ai";
 import {object, string} from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
-import {ElementRef, useRef} from "react";
+import {useRef} from "react";
 import {auth} from "@/lib/auth";
 import {toast} from "react-toastify";
 import {useRouter} from "next/router";
@@ -46,9 +46,9 @@ const Login = () => {
         if (e.response?.status === 417) {
             const message = e.response.data.message;
 
-            message.map((errors) => {
+            message.map((errors: [] | {}) => {
                 const key = Object.keys(errors)
-                return toast.error(errors[key]?.[0])
+                return toast.error(errors?.[key][0])
             })
         }
     }
