@@ -60,7 +60,7 @@ const Login = () => {
                 {/* title */}
                 <div className="text-center pb-6">
                     <p className="text-lg text-gunmetal font-black">You must Sign In to join</p>
-                    <p className="text-sm text-dark-electric-blue capitalize">We're a team that guides each other</p>
+                    <p className="text-sm text-dark-electric-blue capitalize">We&apos;re a team that guides each other</p>
                 </div>
 
                 <form method="post" onSubmit={handleSubmit(handleLogin)}>

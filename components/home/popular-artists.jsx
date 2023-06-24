@@ -23,7 +23,7 @@ const PopularArtists = () => {
 
     useEffect(() => {
         getAlbums()
-    }, [])
+    })
 
     return (
         <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-14">
