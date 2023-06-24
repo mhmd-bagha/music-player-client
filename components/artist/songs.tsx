@@ -8,7 +8,7 @@ import SongType from '@/types/songs'
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {addSongLike, getSongsLiked, removeSongLike} from "@/lib/songsPupolar";
 import {removeLike, setLike} from "@/redux/reducers/songs-popular";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import useUser from "@/hooks/auth";
 
 const Songs = ({songs}) => {
@@ -36,10 +36,10 @@ const Songs = ({songs}) => {
             return await addSongLike(songId).then((res) => res?.status === 200 && dispatch(setLike(songId)))
     }
 
-    const getSongLiked = async () => {
+    const getSongLiked = useCallback(async () => {
         if (auth)
             await getSongsLiked().then((res) => res?.status === 200 && res.data.map(({id}) => dispatch(setLike(id))))
-    }
+    }, [auth, dispatch])
 
     useEffect(() => {
         getSongLiked()
