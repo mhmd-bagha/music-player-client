@@ -8,8 +8,10 @@ import {songByAlbum} from "@/lib/album";
 import {useAppDispatch} from "@/hooks";
 import {albumById} from "@/redux/reducers/album";
 import {useRouter} from "next/router";
+import SongsType from '@/types/songs';
+import {GetServerSideProps, InferGetServerSidePropsType} from "next";
 
-const Album = ({songs}) => {
+const Album = ({songs}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
     const {setShowSidebar} = useGlobalContext()
     const dispatch = useAppDispatch()
     const {albumId} = useRouter().query
@@ -27,16 +29,16 @@ const Album = ({songs}) => {
         <>
             <ArtistImage/>
             <PlayAlbum/>
-            <Songs songs={songs.data}/>
+            <Songs songs={songs}/>
             <PLayerView/>
         </>
     )
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps: GetServerSideProps<{ songs: SongsType[] }> = async (context) => {
     const {albumId} = context.params
 
-    const songs = await songByAlbum(albumId)
+    const songs = await songByAlbum(albumId).then((res) => res.status === 200 && res.data)
 
     return {
         props: {
