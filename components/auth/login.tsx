@@ -48,7 +48,7 @@ const Login = () => {
 
             message.map((errors: [] | {}) => {
                 const key = Object.keys(errors)
-                return toast.error(errors?.[key][0])
+                return toast.error(errors?.[key.toString()][0])
             })
         }
     }
