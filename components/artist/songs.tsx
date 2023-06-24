@@ -8,12 +8,14 @@ import SongType from '@/types/songs'
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {addSongLike, getSongsLiked, removeSongLike} from "@/lib/songsPupolar";
 import {removeLike, setLike} from "@/redux/reducers/songs-popular";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
+import useUser from "@/hooks/auth";
 
 const Songs = ({songs}) => {
     const songsLiked = useAppSelector(state => state.songPopular)
     const dispatch = useAppDispatch()
     const {setSongSrc, setSongPlay} = useGlobalContext()
+    const {auth} = useUser()
 
     const existSongLike = (songId) => songsLiked.songs.find((id) => id === songId)
 
@@ -25,15 +27,19 @@ const Songs = ({songs}) => {
     const songLike = async (songId: number) => {
         const existLike = existSongLike(songId)
 
+        if (!auth)
+            return setLike(songId)
+
         if (existLike)
             return await removeSongLike(songId).then((res) => res?.status === 200 && dispatch(removeLike(songId)))
         else
             return await addSongLike(songId).then((res) => res?.status === 200 && dispatch(setLike(songId)))
     }
 
-    const getSongLiked = async () => {
-        await getSongsLiked().then((res) => res?.status === 200 && res.data.map(({id}) => dispatch(setLike(id))))
-    }
+    const getSongLiked = useCallback(async () => {
+        if (auth)
+            await getSongsLiked().then((res) => res?.status === 200 && res.data.map(({id}) => dispatch(setLike(id))))
+    }, [auth, dispatch])
 
     useEffect(() => {
         getSongLiked()
