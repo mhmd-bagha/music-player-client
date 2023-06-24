@@ -15,7 +15,7 @@ const SongPopular = () => {
 
     useEffect(() => {
         getSongsPopular()
-    }, [])
+    })
 
     return (
         <>

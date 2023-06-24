@@ -37,7 +37,7 @@ const Songs = ({songs}) => {
 
     useEffect(() => {
         getSongLiked()
-    }, [])
+    })
 
     return (
         <>
