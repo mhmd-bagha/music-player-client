@@ -74,7 +74,7 @@ const Login = () => {
                             <input type="email" name="email" id="email" placeholder="Username@mail.com"
                                    className="border border-zinc-300 py-2.5 px-10 rounded-lg outline-none placeholder:text-zinc-400 pl-10" {...register('email')}/>
                         </div>
-                        <p className="text-xs text-red-700 pt-1">{errors.email?.message ?? ''}</p>
+                        <p className="text-xs text-red-700 pt-1">{errors.email?.message.toString()}</p>
                     </div>
                     {/* password */}
                     <div className="py-3">
@@ -84,7 +84,7 @@ const Login = () => {
                             <input type="password" name="password" id="password" placeholder="Password"
                                    className="border border-zinc-300 py-2.5 px-10 rounded-lg outline-none placeholder:text-zinc-400 pl-10" {...register('password')}/>
                         </div>
-                        <p className="text-xs text-red-700 pt-1">{errors.password?.message ?? ''}</p>
+                        <p className="text-xs text-red-700 pt-1">{errors.password?.message.toString()}</p>
                     </div>
                     {/* forgot password */}
                     <Link href="/auth/forgot-password" className="text-sm text-gunmetal flex justify-end">
