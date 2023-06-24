@@ -17,7 +17,7 @@ const Songs = ({songs}) => {
     const {setSongSrc, setSongPlay} = useGlobalContext()
     const {auth} = useUser()
 
-    const existSongLike = (songId) => songsLiked.songs.find((id) => id === songId)
+    const existSongLike = (songId) => songsLiked?.songs.find((id) => id === songId)
 
     const playSong = (src: string) => {
         setSongSrc(src)
