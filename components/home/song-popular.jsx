@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Songs from "Component/artist/songs";
 import {songsPopular} from "@/lib/songsPupolar";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {useAppDispatch, useAppSelector} from "@/hooks";
 import {addSongsPopular} from "@/redux/reducers/songs-popular";
 
@@ -9,13 +9,13 @@ const SongPopular = () => {
     const dispatch = useAppDispatch()
     const songs = useAppSelector(state => state.songPopular.songs_popular)
 
-    const getSongsPopular = async () => {
+    const getSongsPopular = useCallback(async () => {
         await songsPopular().then((res) => res?.status === 200 && dispatch(addSongsPopular(res.data)))
-    }
+    }, [dispatch])
 
     useEffect(() => {
         getSongsPopular()
-    })
+    }, [getSongsPopular])
 
     return (
         <>
