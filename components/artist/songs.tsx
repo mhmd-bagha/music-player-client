@@ -28,7 +28,7 @@ const Songs = ({songs}) => {
         const existLike = existSongLike(songId)
 
         if (!auth)
-            return setLike(songId)
+            return dispatch(setLike(songId))
 
         if (existLike)
             return await removeSongLike(songId).then((res) => res?.status === 200 && dispatch(removeLike(songId)))
