@@ -18,7 +18,7 @@ const Album = ({songs}: InferGetServerSidePropsType<typeof getServerSideProps>) 
 
     useEffect(() => {
         setShowSidebar(false)
-        dispatch(albumById(parseInt(albumId)))
+        dispatch(albumById(albumId))
 
         return () => {
             setShowSidebar(true)
