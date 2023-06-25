@@ -1,7 +1,7 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface InitialState {
-    songs: [],
+    songs: object[],
     songs_popular: []
 }
 
@@ -14,13 +14,13 @@ const songsPopularSlice = createSlice({
     name: 'songPopular',
     initialState,
     reducers: {
-        setLike: (state, action: PayloadAction<number>) => {
+        setLike: (state, action) => {
             state.songs = [...state.songs, action.payload]
         },
-        removeLike: (state, action: PayloadAction<number>) => {
+        removeLike: (state, action) => {
             state.songs = state.songs.filter((id) => id !== action.payload)
         },
-        addSongsPopular: (state, action: PayloadAction<[] | object>) => {
+        addSongsPopular: (state, action) => {
             state.songs_popular = action.payload
         }
     }

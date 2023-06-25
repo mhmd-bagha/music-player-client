@@ -25,7 +25,7 @@ const albumSlice = createSlice({
             state.albums = action.payload
         },
 
-        albumById: (state, action: PayloadAction<number>) => {
+        albumById: (state, action) => {
             const albumId = parseInt(action.payload)
             state.album = state.albums.find(({id}) => id === albumId)
         }

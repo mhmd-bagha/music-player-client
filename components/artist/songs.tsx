@@ -17,7 +17,7 @@ const Songs = ({songs}) => {
     const {setSongSrc, setSongPlay} = useGlobalContext()
     const {auth} = useUser()
 
-    const existSongLike = (songId) => songsLiked.songs.find((id) => id === songId)
+    const existSongLike = (songId) => songsLiked?.songs.find((id) => id === songId)
 
     const playSong = (src: string) => {
         setSongSrc(src)
@@ -28,7 +28,7 @@ const Songs = ({songs}) => {
         const existLike = existSongLike(songId)
 
         if (!auth)
-            return setLike(songId)
+            return dispatch(setLike(songId))
 
         if (existLike)
             return await removeSongLike(songId).then((res) => res?.status === 200 && dispatch(removeLike(songId)))
@@ -43,7 +43,7 @@ const Songs = ({songs}) => {
 
     useEffect(() => {
         getSongLiked()
-    })
+    }, [getSongLiked])
 
     return (
         <>
