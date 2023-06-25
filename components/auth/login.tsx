@@ -4,13 +4,13 @@ import {AiOutlineLock} from "react-icons/ai";
 import {object, string} from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
-import {ElementRef, useRef} from "react";
+import {useRef} from "react";
 import {auth} from "@/lib/auth";
 import {toast} from "react-toastify";
 import {useRouter} from "next/router";
 
 const Login = () => {
-    const loginBtnRef = useRef<ElementRef<any> | null>()
+    const loginBtnRef = useRef<HTMLButtonElement | null>()
     const validator = object({
         email: string().trim().required(),
         password: string().trim().required().min(6)
@@ -21,7 +21,8 @@ const Login = () => {
     const {register, handleSubmit, formState: {errors}} = useForm({resolver: yupResolver(validator)})
 
     const handleLogin = (data) => {
-        loginBtnRef.current.disabled = true
+        if (loginBtnRef.current)
+            loginBtnRef.current.disabled = true
 
         auth(data).then((data) => {
             enableLoginBtn()
@@ -45,9 +46,9 @@ const Login = () => {
         if (e.response?.status === 417) {
             const message = e.response.data.message;
 
-            message.map((errors) => {
+            message.map((errors: [] | {}) => {
                 const key = Object.keys(errors)
-                return toast.error(errors[key]?.[0])
+                return toast.error(errors?.[key.toString()][0])
             })
         }
     }
@@ -60,7 +61,8 @@ const Login = () => {
                 {/* title */}
                 <div className="text-center pb-6">
                     <p className="text-lg text-gunmetal font-black">You must Sign In to join</p>
-                    <p className="text-sm text-dark-electric-blue capitalize">We're a team that guides each other</p>
+                    <p className="text-sm text-dark-electric-blue capitalize">We&apos;re a team that guides each
+                        other</p>
                 </div>
 
                 <form method="post" onSubmit={handleSubmit(handleLogin)}>
@@ -72,7 +74,7 @@ const Login = () => {
                             <input type="email" name="email" id="email" placeholder="Username@mail.com"
                                    className="border border-zinc-300 py-2.5 px-10 rounded-lg outline-none placeholder:text-zinc-400 pl-10" {...register('email')}/>
                         </div>
-                        <p className="text-xs text-red-700 pt-1">{errors.email?.message}</p>
+                        <p className="text-xs text-red-700 pt-1">{errors.email?.message.toString()}</p>
                     </div>
                     {/* password */}
                     <div className="py-3">
@@ -82,7 +84,7 @@ const Login = () => {
                             <input type="password" name="password" id="password" placeholder="Password"
                                    className="border border-zinc-300 py-2.5 px-10 rounded-lg outline-none placeholder:text-zinc-400 pl-10" {...register('password')}/>
                         </div>
-                        <p className="text-xs text-red-700 pt-1">{errors.password?.message}</p>
+                        <p className="text-xs text-red-700 pt-1">{errors.password?.message.toString()}</p>
                     </div>
                     {/* forgot password */}
                     <Link href="/auth/forgot-password" className="text-sm text-gunmetal flex justify-end">

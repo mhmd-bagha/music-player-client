@@ -2,7 +2,7 @@ import Link from "next/link";
 import styles from "Styles/Home.module.scss";
 import Image from "next/image";
 import {CiPlay1} from "react-icons/ci";
-import {useEffect} from "react";
+import {useCallback, useEffect} from "react";
 import {albums as GetAlbums} from "@/lib/album";
 import {set} from "@/redux/reducers/album";
 import {useAppDispatch, useAppSelector} from "@/hooks";
@@ -12,18 +12,18 @@ const PopularArtists = () => {
     const albumState = useAppSelector(state => state.album)
     const dispatch = useAppDispatch()
 
-    const getAlbums = async () => {
+    const getAlbums = useCallback(async () => {
         if (albumState.albums.length === 0) {
             const albums = await GetAlbums()
 
             if (albums.status === 200)
                 return dispatch(set(albums.data))
         }
-    }
+    }, [albumState, dispatch])
 
     useEffect(() => {
         getAlbums()
-    }, [])
+    })
 
     return (
         <div className="grid grid-flow-col overflow-x-auto gap-6 my-14 px-14">

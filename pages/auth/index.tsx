@@ -21,7 +21,7 @@ const Auth = () => {
     )
 }
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps = async (context) => {
     const cookies = parseCookies(context)
 
     // if exist user, redirect to home page

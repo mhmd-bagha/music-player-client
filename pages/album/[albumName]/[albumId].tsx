@@ -4,12 +4,15 @@ import Songs from "Component/artist/songs";
 import PLayerView from "Component/player/player";
 import {useGlobalContext} from "@/context/store";
 import {useEffect} from "react";
-import {songByAlbum} from "@/lib/album";
+import {albums, songByAlbum} from "@/lib/album";
 import {useAppDispatch} from "@/hooks";
 import {albumById} from "@/redux/reducers/album";
 import {useRouter} from "next/router";
+import SongsType from '@/types/songs';
+import {GetStaticPaths, GetStaticProps, InferGetServerSidePropsType} from "next";
+import slug from '@/helpers/slug';
 
-const Album = ({songs}) => {
+const Album = ({songs}: InferGetServerSidePropsType<typeof getStaticProps>) => {
     const {setShowSidebar} = useGlobalContext()
     const dispatch = useAppDispatch()
     const {albumId} = useRouter().query
@@ -27,21 +30,31 @@ const Album = ({songs}) => {
         <>
             <ArtistImage/>
             <PlayAlbum/>
-            <Songs songs={songs.data}/>
+            <Songs songs={songs}/>
             <PLayerView/>
         </>
     )
 }
 
-export const getServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps<{ songs: SongsType[] }> = async (context) => {
     const {albumId} = context.params
 
-    const songs = await songByAlbum(albumId)
+    const songs = await songByAlbum(albumId).then((res) => res.status === 200 && res.data)
 
     return {
         props: {
             songs
         }
+    }
+}
+
+export const getStaticPaths: GetStaticPaths = async () => {
+    const getAlbums = await albums().then((res) => res.status === 200 && res.data)
+    const paths = getAlbums.map(({singer_name, id}) => ({params: {albumName: slug(singer_name), albumId: id.toString()}}))
+
+    return {
+        paths,
+        fallback: false
     }
 }
 
