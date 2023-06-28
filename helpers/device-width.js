@@ -2,7 +2,7 @@ import {useCallback, useEffect, useRef, useState} from "react";
 
 const useDeviceWidth = () => {
     const [width, setWidth] = useState(typeof window !== "undefined" ? window.innerWidth : null);
-    const devices = useRef({sm: 576, md: 768, lg: 992, xl: 1200, xxl: 1400});
+    const devices = useRef({sm: 576, md: 768, lg: 1024, xl: 1080, xxl: 1536});
 
     const getDevice = useCallback(() => {
         switch (true) {
